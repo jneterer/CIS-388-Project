@@ -65,3 +65,10 @@ section {
     float: left;
     width: 49.5%;
 }
+
+footer {
+    float: left;
+    background-color: dimgray;
+    color: white;
+    width: 100%;
+}
