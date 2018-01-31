@@ -1,0 +1,63 @@
+body {
+    background: url("../../Images/pic.jpeg");
+    background-size: 100%;
+}
+
+form {
+    border: 10px solid DeepSkyBlue;
+    background-color: DimGray;
+    padding: 20px;
+    width: 250px;
+    color: white;
+    margin-top: 125px;
+    margin-bottom: 125px;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+input[type=text] {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+input[type=password] {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+button {
+    background-color: DeepSkyBlue;
+    border: none;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 2px;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: white;
+}
+
+legend {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+a {
+    font-size: 10px;
+    font-family: sans-serif;
+    color: white;
+}
+
+
+
+
+
+
