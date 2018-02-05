@@ -3,11 +3,6 @@ header {
     color: white;
 }
 
-table {
-    padding-top: 25px;
-    padding-bottom: 25px;
-}
-
 .bookBGL {
     background: url("../../Images/booksL.png") no-repeat center center;
     background-size:100%;
@@ -20,7 +15,8 @@ table {
 
 ul {
     list-style-type: none;
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 25px;
     padding: 0;
     overflow: hidden;
     background-color: dimgray;
@@ -51,24 +47,36 @@ li a:hover {
     color: white;
 }
 
-.asideL {
-    float: left;
-    width: 25%;
-}
-
-.asideR {
-    float: left;
-    width: 25%;
-}
-
-section {
-    float: left;
-    width: 49.5%;
-}
-
 footer {
-    float: left;
     background-color: dimgray;
     color: white;
+    float: left;
+    margin-top: 25px;
+    margin-bottom: 10px;
     width: 100%;
+}
+
+.tableFooter {
+    width: 100%;
+}
+
+td.tdFooter {
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    width: 16%;
+}
+
+a {
+    color: white;
+}
+
+button {
+    border: 2px solid dimgray;
+    background-color: deepskyblue;
+    color: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px 10px;
 }

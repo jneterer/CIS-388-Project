@@ -2,11 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Bookshelf - Home</title>
-        <!-- Imports home.css file -->
-        <link href="home.css" rel="stylesheet" type="text/css">
+        <title>Bookshelf - Account</title>
+        <!-- Imports active_books.css file -->
+        <link href="account.css" rel="stylesheet" type="text/css">
         <!-- Imports master.css file -->
         <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
+        <!-- Imports stylesheet for forms -->
+        <link href="../style_templates/forms.css" rel="stylesheet" type="text/css">
         <!-- Keeps the program from sending an error saying it can't find module html -->
         <link rel="shortcut icon" href="">
     </head>
@@ -28,31 +30,41 @@
         </header>
         <!-- Making a navigation bar -->
         <ul>
-            <li><a class="active" href="home.html">Home</a></li>
+            <li><a href="../home/home.html">Home</a></li>
             <li><a href="../my_library/my_library.html">My Library</a></li>
-            <li><a href="../active_books/active_Books.html">Active Books</a></li>
+            <li><a href="">Active Books</a></li>
             <li><a href="../book_notes/book_notes.html">Book Notes</a></li>
             <li><a href="../book_quotes/book_quotes.html">Book Quotes</a></li>
             <li style="float:right"><a href="../login/login.html">Log Out</a></li>
-            <li style="float:right"><a href="../account/account.html">Account</a></li>
+            <li style="float:right"><a class="active" href="">Account</a></li>
             <li style="float:right"><a href="../contact_us/contact_us.html">Contact Us</a></li>
             <li style="float:right"><a href="../about/about.html">About</a></li>
         </ul>
-        <aside class="asideL">
-            <h1 style="text-align: center">News</h1>
-            <p>We should have a working website by early March!</p>
-        </aside>
-        <section>
-            <div align="center">
-                <h1 style="font-size: 35px;">Welcome to Bookshelf, Jacob Neterer!</h1>
-            </div>
-        </section>
-        <aside class="asideR">
-            <div align="center">
-                <h1 style="text-align: center">Recent Activity</h1>
-            </div>
-            <p>You joined Bookshelf on January 30, 2018.</p>
-        </aside>
+        <!-- Sets up form with account data -->
+        <table style="width: 100%;">
+            <tr>
+                <td></td>
+                <td style="width:25%;">
+                    <form>
+                        <label for="firstName">First Name</label><br>
+                        <input type="text" id="firstName" name="firstName"><br>
+                        <label for="lastName">Message</label><br>
+                        <input type="text" id="lastName" name="lastName"><br>
+                        <label for="email">Email</label><br>
+                        <input type="text" id="email" name="email">
+                        <br><br>
+                        <label for="current_pass">Retype New Password</label><br>
+                        <input type="password" id="current_pass" name="current_pass">
+                        <label for="new_pass1">New Password</label><br>
+                        <input type="password" id="new_pass1" name="new_pass1">
+                        <label for="new_pass2">Retype New Password</label><br>
+                        <input type="password" id="new_pass2" name="new_pass2">
+                        <button type="submit" id="update_account">Update</button>
+                    </form>
+                </td>
+                <td></td>
+            </tr>
+        </table>
         <!-- Making the footer -->
         <footer>
             <table class="tableFooter">
@@ -76,7 +88,7 @@
                     <td class="tdFooter"></td>
                     <td class="tdFooter"></td>
                     <td class="tdFooter"><a href="../active_books/active_Books.html">Active Books</a></td>
-                    <td class="tdFooter"><a href="../account/account.html">Account</a></td>
+                    <td class="tdFooter"><a href="">Account</a></td>
                     <td class="tdFooter"></td>
                     <td class="tdFooter"></td>
                 </tr>

@@ -1,0 +1,9 @@
+label {
+    font-weight: bold;
+}
+
+input {
+    margin-top: 2px;
+    margin-bottom:5px;
+    width: 100%;
+}
