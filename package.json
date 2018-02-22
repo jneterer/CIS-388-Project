@@ -18,7 +18,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node server.js"
+    "start": "node server/server.js",
+    "test-watch": "nodemon --exec npm test"
   },
   "repository": {
     "type": "git",
