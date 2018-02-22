@@ -9,6 +9,8 @@ var {User} = require('./models/user');
 var app = express();
 
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '../../../public'));
+app.use(express.static(__dirname + '../../../Images'));
 
 app.post('/login', (req, res) => {
   var user = new User({
@@ -28,9 +30,15 @@ app.post('/login', (req, res) => {
   })
 });
 
+// Sends login.html
 app.get('/login', (req, res) => {
   res.sendFile('/login.html', {root: __dirname + '../../login'});
 });
+
+// Sends create_account.html
+app.get('/create_account', (req, res) => {
+  res.sendFile('/createAccount.html', {root: __dirname + '../../create_account'});
+})
 
 // Listen on port 3000
 app.listen(3000, function() {
