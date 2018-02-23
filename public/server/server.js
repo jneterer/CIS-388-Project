@@ -24,7 +24,7 @@ app.get('/login', (req, res) => {
 });
 
 // POST login
-app.post('/login', userExists, (req, res, next) => {
+app.post('/login', (req, res, next) => {
   var body = _.pick(req.body, ['email', 'password']);
   var user = new User(body);
 });
