@@ -41,6 +41,7 @@ app.get('/create_account', (req, res) => {
   res.sendFile('/createAccount.html', {root: __dirname + '../../create_account'});
 });
 
+// POST creating account
 app.post('/create_account', (req, res) => {
   var body = _.pick(req.body, ['first_name', 'last_name', 'email', 'password', 'phone']);
   var pass2 = _.pick(req.body, ['confirmPassword']);
@@ -52,6 +53,14 @@ app.post('/create_account', (req, res) => {
     //res.header('x-auth', token).send(user);
     res.header('x-auth', token).redirect('../home/home.html');
   }).catch((e) => {
+    res.status(400).send();
+  });
+});
+
+app.delete('/logout', authenticate, (req, res) => {
+  req.user.removeToken(req.token).then(() => {
+    res.status(200).send();
+  }, () => {
     res.status(400).send();
   });
 });

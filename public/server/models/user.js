@@ -76,6 +76,18 @@ UserSchema.methods.generateAuthToken = function () {
   });
 };
 
+// Deleted token
+UserSchema.methods.removeToken = function (token) {
+  var user = this;
+
+  // Allows you to remove values from an array based on certain criteria
+  return user.update({
+    $pull: {
+      tokens: {token}
+    }
+  });
+};
+
 // Code to be run before saving
 UserSchema.pre('save', function (next) {
   var user = this;
