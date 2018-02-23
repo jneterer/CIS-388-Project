@@ -33,5 +33,13 @@ var UserSchema = new Schema({
   }
 });
 
+UserSchema.methods.toJSON = function () {
+  var user = this;
+  var userObject = user.toObject();
+
+  return _.pick(userObject, ['_id', 'email']);
+
+};
+
 var User = mongoose.model('User', UserSchema)
 module.exports = {User};
