@@ -1,26 +1,18 @@
-const {mongoose} = require('../db/mongoose');
-const {User} = require('../models/user');
-const bcrypt = require('bcryptjs');
+var {User} = require('./../models/user');
+var authenticate = (req, res, next) => {
+  var token = req.header('x-auth');
 
-var userExists = (User) => {
-  var user = User;
-  user.statics.findByCredentials(user.email).then((foundUser) => {
-    if (!foundUser) {
-      return false;
+  User.findByToken(token).then((user) => {
+    if (!user) {
+      return Promise.reject();
     }
-    else {
-      return passTest(user.password, foundUser.password);
-    }
-  }).catch((e) => res.status(400).send(e));
+
+    req.user = user;
+    req.token = token;
+    next();
+  }).catch((e) => {
+    res.status(401).send();
+  });
 };
 
-var passTest = (password, hashedPassword) => {
-  if (password !== hashedPassword) {
-    return false;
-  }
-  else {
-    return true;
-  }
-};
-
-module.exports = {userExists};
+module.exports = {authenticate};

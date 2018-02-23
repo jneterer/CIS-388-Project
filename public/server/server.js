@@ -5,9 +5,10 @@ const { sanitizeBody } = require('express-validator/filter');
 const engine = require('consolidate');
 const _ = require('lodash');
 
-const {userExists} = require('./authenticate/authenticate');
-const {mongoose} = require('./db/mongoose');
-const {User} = require('./models/user');
+var {mongoose} = require('./db/mongoose');
+var {User} = require('./models/user');
+var {authenticate} = require('./authenticate/authenticate');
+
 
 var app = express();
 
@@ -47,7 +48,7 @@ app.post('/create_account', (req, res) => {
   });
 });
 
-app.get('/home', (req, res) => {
+app.get('/home', authenticate, (req, res) => {
   res.sendFile('/home.html', {root: __dirname + '../../home'});
 });
 
