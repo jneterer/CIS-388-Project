@@ -26,7 +26,14 @@ app.get('/login', (req, res) => {
 // POST login
 app.post('/login', (req, res, next) => {
   var body = _.pick(req.body, ['email', 'password']);
-  var user = new User(body);
+
+  User.findByCredentials(body.email, body.password).then((user) => {
+    user.generateAuthToken().then((token) => {
+      res.header('x-auth, token').redirect('../home/home.html');
+    });
+  }).catch((e) => {
+    res.status(400).send();
+  });
 });
 
 // GET create_account.html
@@ -42,14 +49,11 @@ app.post('/create_account', (req, res) => {
   user.save().then(() => {
     return user.generateAuthToken();
   }).then((token) => {
-    res.header('x-auth', token).send(user);
+    //res.header('x-auth', token).send(user);
+    res.header('x-auth', token).redirect('../home/home.html');
   }).catch((e) => {
     res.status(400).send();
   });
-});
-
-app.get('/home', authenticate, (req, res) => {
-  res.sendFile('/home.html', {root: __dirname + '../../home'});
 });
 
 // Listen on port 3000
