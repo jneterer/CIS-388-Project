@@ -6,6 +6,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "connect-ensure-login": "^0.1.1",
     "connect-flash": "^0.1.1",
     "consolidate": "^0.15.0",
     "cookie-parser": "^1.4.3",
@@ -19,6 +20,7 @@
     "mongoose": "^5.0.6",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "passport-login-check": "^0.1.0",
     "util": "^0.10.3",
     "validator": "^9.4.1"
   },
