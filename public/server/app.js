@@ -23,7 +23,7 @@ app.use(express.static(__dirname + '../../../Images'));
 
 app.use(session({
   secret: 'aye1',
-  saveUnitialized: false,
+  saveUnitialized: true,
   resave: true
 }));
 
