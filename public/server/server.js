@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + '../../../public'));
+app.use(express.static(__dirname + '../../../public/home'));
 app.use(express.static(__dirname + '../../../Images'));
 
 //GET login.html
@@ -24,12 +25,26 @@ app.get('/login', (req, res) => {
 });
 
 // POST login
-app.post('/login', (req, res, next) => {
-  var body = _.pick(req.body, ['email', 'password']);
+// app.post('/login', (req, res, next) => {
+//   var body = _.pick(req.body, ['email', 'password']);
+//
+//   User.findByCredentials(body.email, body.password).then((user) => {
+//     user.generateAuthToken().then((token) => {
+//       //res.header('x-auth, token').redirect('../home/home.html');
+//       res.header('x-auth', token)redirect('/home');
+//     });
+//   }).catch((e) => {
+//     res.status(400).send();
+//   });
+// });
 
+app.post('/login', (req, res) => {
+  var body = _.pick(req.body, ['email', 'password']);
+  console.log('HEY!');
   User.findByCredentials(body.email, body.password).then((user) => {
-    user.generateAuthToken().then((token) => {
-      res.header('x-auth, token').redirect('../home/home.html');
+    return user.generateAuthToken().then((token) => {
+      //res.header('x-auth, token').redirect('../home/home.html');
+      res.header('x-auth', token).redirect('/home');
     });
   }).catch((e) => {
     res.status(400).send();
@@ -51,7 +66,7 @@ app.post('/create_account', (req, res) => {
     return user.generateAuthToken();
   }).then((token) => {
     //res.header('x-auth', token).send(user);
-    res.header('x-auth', token).redirect('../home/home.html');
+    res.header('x-auth', token).redirect('/home');
   }).catch((e) => {
     res.status(400).send();
   });
@@ -63,6 +78,10 @@ app.delete('/logout', authenticate, (req, res) => {
   }, () => {
     res.status(400).send();
   });
+});
+
+app.get('/home', (req, res) => {
+  res.sendFile('/home.html', {root: __dirname + '../../home'});
 });
 
 // Listen on port 3000
