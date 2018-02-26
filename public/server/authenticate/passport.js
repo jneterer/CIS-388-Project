@@ -30,7 +30,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(_id, done) {
-  console.log('heyyo');
+  console.log('heyyoasdf');
   User.findById(_id, function(err, user) {
     done(err, user);
   });

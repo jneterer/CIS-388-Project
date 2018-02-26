@@ -79,7 +79,7 @@ app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
 
 
 app.get('/my_library', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.sendFile('/home.html', {root: __dirname + '../../my_library'});
+  res.sendFile('/my_library.html', {root: __dirname + '../../my_library'});
 });
 
 
