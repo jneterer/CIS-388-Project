@@ -8,6 +8,8 @@ const ensure = require('connect-ensure-login');
 ensure.defaultRedirectUrl = '/login';
 ensure.defaultReturnUrl = '/home';
 
+const port = process.env.PORT ||| 3000;
+
 var {mongoose} = require('./db/mongoose');
 var {User} = require('./models/user');
 
@@ -55,6 +57,6 @@ app.get('/logout', (req, res) => {
 });
 
 // Listen on port 3000
-app.listen(3000, function() {
-    console.log('Express app listening on port 3000');
+app.listen(port, function() {
+    console.log(`Express app listening on port ${port}`);
 });
