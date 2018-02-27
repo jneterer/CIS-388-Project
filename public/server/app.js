@@ -8,7 +8,7 @@ const ensure = require('connect-ensure-login');
 ensure.defaultRedirectUrl = '/login';
 ensure.defaultReturnUrl = '/home';
 
-const port = process.env.PORT ||| 3000;
+const port = process.env.PORT || 3000;
 
 var {mongoose} = require('./db/mongoose');
 var {User} = require('./models/user');
