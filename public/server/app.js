@@ -35,6 +35,10 @@ app.use(passport.session());
 
 const auth = require('./authenticate/passport');
 
+app.get('/', (req, res) => {
+  res.redirect('/login');
+});
+
 app.get('/login', (req, res) => {
   res.sendFile('/login.html', {root: __dirname + '../../login'});
 });
