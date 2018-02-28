@@ -43,11 +43,12 @@ app.get('/login', (req, res) => {
   res.sendFile('/login.html', {root: __dirname + '../../login'});
 });
 
-app.post('/login', passport.authenticate('local', {successReturnToOrRedirect: '/', failureRedirect: '/login'}), (req, res) => {
+app.post('/login', passport.authenticate('local', {successReturnToOrRedirect: '/home', failureRedirect: '/login'}), (req, res) => {
   res.redirect('/home');
 });
 
 app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
+  console.log('Visited home');
   res.sendFile('/home.html', {root: __dirname + '../../home'});
 });
 
