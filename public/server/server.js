@@ -55,6 +55,30 @@ app.get('/my_library', ensure.ensureLoggedIn('/login'), (req, res) => {
   res.sendFile('/my_library.html', {root: __dirname + '../../my_library'});
 });
 
+app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
+  res.sendFile('/active_books.html', {root: __dirname + '../../active_books'});
+});
+
+app.get('/book_notes', ensure.ensureLoggedIn('/login'), (req, res) => {
+  res.sendFile('/book_notes.html', {root: __dirname + '../../book_notes'});
+});
+
+app.get('/book_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
+  res.sendFile('/book_quotes.html', {root: __dirname + '../../book_quotes'});
+});
+
+app.get('/about', ensure.ensureLoggedIn('/login'), (req, res) => {
+  res.sendFile('/about.html', {root: __dirname + '../../about'});
+});
+
+app.get('/contact_us', ensure.ensureLoggedIn('/login'), (req, res) => {
+  res.sendFile('/contact_us.html', {root: __dirname + '../../contact_us'});
+});
+
+app.get('/account', ensure.ensureLoggedIn('/login'), (req, res) => {
+  res.sendFile('/account.html', {root: __dirname + '../../account'});
+});
+
 app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/login');
