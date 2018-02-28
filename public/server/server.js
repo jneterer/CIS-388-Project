@@ -84,6 +84,7 @@ app.get('/account', ensure.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.get('/logout', (req, res) => {
+  console.log('aye');
   req.logout();
   res.redirect('/login');
 });
