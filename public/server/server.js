@@ -1,15 +1,19 @@
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
-const { body, validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
-const engine = require('consolidate');
-const _ = require('lodash');
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcryptjs');
+const ensure = require('connect-ensure-login');
+ensure.defaultRedirectUrl = '/login';
+ensure.defaultReturnUrl = '/home';
+
+const port = process.env.PORT || 3000;
 
 var {mongoose} = require('./db/mongoose');
 var {User} = require('./models/user');
-var {authenticate} = require('./authenticate/authenticate');
 
-
+// Express Application
 var app = express();
 
 app.use(bodyParser.json());
@@ -19,72 +23,45 @@ app.use(express.static(__dirname + '../../../public'));
 app.use(express.static(__dirname + '../../../public/home'));
 app.use(express.static(__dirname + '../../../Images'));
 
+app.use(session({
+  secret: 'aye1',
+  saveUnitialized: true,
+  resave: true
+}));
+
 //GET login.html
+app.use(passport.initialize());
+app.use(passport.session());
+
+const auth = require('./authenticate/passport');
+
+app.get('/', (req, res) => {
+  res.redirect('/login');
+});
+
 app.get('/login', (req, res) => {
   res.sendFile('/login.html', {root: __dirname + '../../login'});
 });
 
-// POST login
-// app.post('/login', (req, res, next) => {
-//   var body = _.pick(req.body, ['email', 'password']);
-//
-//   User.findByCredentials(body.email, body.password).then((user) => {
-//     user.generateAuthToken().then((token) => {
-//       //res.header('x-auth, token').redirect('../home/home.html');
-//       res.header('x-auth', token)redirect('/home');
-//     });
-//   }).catch((e) => {
-//     res.status(400).send();
-//   });
-// });
-
-app.post('/login', (req, res) => {
-  var body = _.pick(req.body, ['email', 'password']);
-  console.log('HEY!');
-  User.findByCredentials(body.email, body.password).then((user) => {
-    return user.generateAuthToken().then((token) => {
-      //res.header('x-auth, token').redirect('../home/home.html');
-      res.header('x-auth', token).redirect('/home');
-    });
-  }).catch((e) => {
-    res.status(400).send();
-  });
+app.post('/login', passport.authenticate('local', {successReturnToOrRedirect: '/home', failureRedirect: '/login'}), (req, res) => {
+  res.redirect('/home');
 });
 
-// GET create_account.html
-app.get('/create_account', (req, res) => {
-  res.sendFile('/createAccount.html', {root: __dirname + '../../create_account'});
-});
-
-// POST creating account
-app.post('/create_account', (req, res) => {
-  var body = _.pick(req.body, ['first_name', 'last_name', 'email', 'password', 'phone']);
-  var pass2 = _.pick(req.body, ['confirmPassword']);
-  var user = new User(body);
-
-  user.save().then(() => {
-    return user.generateAuthToken();
-  }).then((token) => {
-    //res.header('x-auth', token).send(user);
-    res.header('x-auth', token).redirect('/home');
-  }).catch((e) => {
-    res.status(400).send();
-  });
-});
-
-app.delete('/logout', authenticate, (req, res) => {
-  req.user.removeToken(req.token).then(() => {
-    res.status(200).send();
-  }, () => {
-    res.status(400).send();
-  });
-});
-
-app.get('/home', (req, res) => {
+app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
+  console.log('Visited home');
   res.sendFile('/home.html', {root: __dirname + '../../home'});
 });
 
+app.get('/my_library', ensure.ensureLoggedIn('/login'), (req, res) => {
+  res.sendFile('/my_library.html', {root: __dirname + '../../my_library'});
+});
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/login');
+});
+
 // Listen on port 3000
-app.listen(3000, function() {
-    console.log('Express app listening on port 3000');
+app.listen(port, function() {
+    console.log(`Express app listening on port ${port}`);
 });
