@@ -5,6 +5,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const ensure = require('connect-ensure-login');
+const _ = require('lodash');
 ensure.defaultRedirectUrl = '/login';
 ensure.defaultReturnUrl = '/home';
 
@@ -49,6 +50,19 @@ app.post('/login', passport.authenticate('local', {successReturnToOrRedirect: '/
 
 app.get('/create_account', (req, res) => {
   res.sendFile('/create_account.html', {root: __dirname + '../../create_account'});
+});
+
+app.post('/create_account', (req, res) => {
+  var body = _.pick(req.body, ['first_name', 'last_name', 'email', 'password', 'confirmPassword', 'phone']);
+  var user = new User(body);
+
+  if (body.password !== body.confirmPassword) {
+    console.log(`Password: ${bodypassword} does not equal confirmPassword: ${body.confirmPassword}`)
+    res.redirect('create_account');
+  } else {
+    user.save();
+    res.redirect('/login');
+  }
 });
 
 app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {

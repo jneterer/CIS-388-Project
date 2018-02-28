@@ -38,11 +38,11 @@ var UserSchema = new Schema({
   tokens: [{
     access: {
       type: String,
-      required: true,
+      required: false,
     },
     token: {
       type: String,
-      required: true,
+      required: false,
     }
   }],
   phone: {
@@ -63,31 +63,6 @@ UserSchema.methods.toJSON = function () {
   return _.pick(userObject, ['_id', 'email']);
 };
 
-// Making a new methods associated with the UserSchema
-UserSchema.methods.generateAuthToken = function () {
-  var user = this;
-  var access = 'auth';
-  var token = jwt.sign({_id: user._id.toHexString(), access}, 'abc123').toString();
-
-  user.tokens = user.tokens.concat([{access, token}]);
-
-  return user.save().then(() => {
-    return token;
-  });
-};
-
-// Deleted token
-UserSchema.methods.removeToken = function (token) {
-  var user = this;
-
-  // Allows you to remove values from an array based on certain criteria
-  return user.update({
-    $pull: {
-      tokens: {token}
-    }
-  });
-};
-
 // Code to be run before saving
 UserSchema.pre('save', function (next) {
   var user = this;
@@ -103,25 +78,6 @@ UserSchema.pre('save', function (next) {
     next();
   }
 });
-
-// Using statics creates model methods instead of instance methods
-UserSchema.statics.findByToken = function (token) {
-  var User = this;
-  var decoded;
-
-  try {
-    decoded = jwt.verify(token, 'abc123');
-  } catch (e) {
-    // Keeps User.findOne() from returning if token has been adjusted
-    return Promise.reject();
-  }
-
-  return User.findOne({
-    '_id': decoded._id,
-    'tokens.token': token,
-    'tokens.access': 'auth'
-  });
-};
 
 // Finds user in DB
 UserSchema.statics.findByCredentials = function (email, password) {
