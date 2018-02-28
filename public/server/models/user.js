@@ -35,16 +35,6 @@ var UserSchema = new Schema({
     minlength: 6,
     required: true
   },
-  tokens: [{
-    access: {
-      type: String,
-      required: false,
-    },
-    token: {
-      type: String,
-      required: false,
-    }
-  }],
   phone: {
     type: String,
     required: false
