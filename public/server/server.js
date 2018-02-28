@@ -47,6 +47,10 @@ app.post('/login', passport.authenticate('local', {successReturnToOrRedirect: '/
   res.redirect('/home');
 });
 
+app.get('/create_account', (req, res) => {
+  res.sendFile('/create_account.html', {root: __dirname + '../../create_account'});
+});
+
 app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
   res.sendFile('/home.html', {root: __dirname + '../../home'});
 });
