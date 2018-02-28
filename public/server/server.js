@@ -48,7 +48,6 @@ app.post('/login', passport.authenticate('local', {successReturnToOrRedirect: '/
 });
 
 app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
-  console.log('Visited home');
   res.sendFile('/home.html', {root: __dirname + '../../home'});
 });
 
