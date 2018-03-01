@@ -10,6 +10,8 @@ ensure.defaultRedirectUrl = '/login';
 ensure.defaultReturnUrl = '/home';
 
 const port = process.env.PORT || 3000;
+
+// In the case that it is run locally, require the config files
 if (port === 3000) {
   require('./config/config');
 }
