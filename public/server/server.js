@@ -6,11 +6,13 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const ensure = require('connect-ensure-login');
 const _ = require('lodash');
-require('./config/config');
 ensure.defaultRedirectUrl = '/login';
 ensure.defaultReturnUrl = '/home';
 
 const port = process.env.PORT || 3000;
+if (port === 3000) {
+  require('./config/config');
+}
 
 var {mongoose} = require('./db/mongoose');
 var {User} = require('./models/user');
