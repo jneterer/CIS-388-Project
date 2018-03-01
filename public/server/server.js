@@ -6,6 +6,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const ensure = require('connect-ensure-login');
 const _ = require('lodash');
+require('./config/config');
 ensure.defaultRedirectUrl = '/login';
 ensure.defaultReturnUrl = '/home';
 
@@ -25,7 +26,7 @@ app.use(express.static(__dirname + '../../../public/home'));
 app.use(express.static(__dirname + '../../../Images'));
 
 app.use(session({
-  secret: 'aye1',
+  secret: process.env.SECRET,
   saveUnitialized: true,
   resave: true
 }));
