@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Ensures proper rendering and touch zooming for mobile applications -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bookshelf - Book Quotes</title>
+        <!-- Imports book_quotes.css file -->
+        <link href="book_quotes.css" rel="stylesheet" type="text/css">
+        <!-- Imports master.css file -->
+        <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
+        <!-- Imports the tables style css sheet -->
+        <link href="../style_templates/tables.css" rel="stylesheet" type="text/css">
+        <!-- Keeps the program from sending an error saying it can't find module html -->
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        {{> header}}
+        {{> navigation}}
+        <!-- Table holding book data -->
+        <table class="table_books">
+            <tr>
+                <th class="th_books">Book Title</th>
+                <th class="th_books">Date Quote Added</th>
+                <th class="th_books">Quote Title</th>
+                <th class="th_books">Quote</th>
+            </tr>
+            <tr class="tr_books">
+                <td class="td_books"></td>
+                <td class="td_books"></td>
+                <td class="td_books"></td>
+                <td class="td_books"></td>
+            </tr>
+            <tr class="tr_books">
+                <td class="td_books"></td>
+                <td class="td_books"></td>
+                <td class="td_books"></td>
+                <td class="td_books"></td>
+            </tr>
+        </table>
+        {{> footer}}
+    </body>
+</html>

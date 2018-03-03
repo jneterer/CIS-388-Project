@@ -79,23 +79,73 @@ app.post('/create_account', (req, res) => {
 });
 
 app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.sendFile('/home.html', {root: __dirname + '../../home'});
+  //res.sendFile('/home.html', {root: __dirname + '../../home'});
+  res.render('home.hbs', {
+    home: true,
+    my_library: false,
+    active_books: false,
+    book_notes: false,
+    book_quotes: false,
+    about: false,
+    contact_us: false,
+    account: false
+  });
 });
 
 app.get('/my_library', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.sendFile('/my_library.html', {root: __dirname + '../../my_library'});
+  //res.sendFile('/my_library.html', {root: __dirname + '../../my_library'});
+  res.render('my_library.hbs', {
+    home: false,
+    my_library: true,
+    active_books: false,
+    book_notes: false,
+    book_quotes: false,
+    about: false,
+    contact_us: false,
+    account: false
+  });
 });
 
 app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.sendFile('/active_books.html', {root: __dirname + '../../active_books'});
+  //res.sendFile('/active_books.html', {root: __dirname + '../../active_books'});
+  res.render('active_books.hbs', {
+    home: false,
+    my_library: false,
+    active_books: true,
+    book_notes: false,
+    book_quotes: false,
+    about: false,
+    contact_us: false,
+    account: false
+  });
 });
 
 app.get('/book_notes', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.sendFile('/book_notes.html', {root: __dirname + '../../book_notes'});
+  //res.sendFile('/book_notes.html', {root: __dirname + '../../book_notes'});
+  res.render('book_notes.hbs', {
+    home: false,
+    my_library: false,
+    active_books: false,
+    book_notes: true,
+    book_quotes: false,
+    about: false,
+    contact_us: false,
+    account: false
+  });
 });
 
 app.get('/book_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.sendFile('/book_quotes.html', {root: __dirname + '../../book_quotes'});
+  //res.sendFile('/book_quotes.html', {root: __dirname + '../../book_quotes'});
+  res.render('book_quotes.hbs', {
+    home: false,
+    my_library: false,
+    active_books: false,
+    book_notes: false,
+    book_quotes: true,
+    about: false,
+    contact_us: false,
+    account: false
+  });
 });
 
 app.get('/about', ensure.ensureLoggedIn('/login'), (req, res) => {

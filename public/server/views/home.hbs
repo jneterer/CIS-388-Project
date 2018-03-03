@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Ensures proper rendering and touch zooming for mobile applications -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bookshelf - Home</title>
+        <!-- Imports home.css file -->
+        <link href="../../style_templates/home.css" rel="stylesheet" type="text/css">
+        <!-- Imports master.css file -->
+        <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
+        <!-- Keeps the program from sending an error saying it can't find module html -->
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        {{> header}}
+        {{> navigation}}
+        <aside class="asideL">
+            <h1 style="text-align: center">News</h1>
+            <p>We should have a working website by early March!</p>
+        </aside>
+        <section>
+            <div align="center">
+                <h1 style="font-size: 35px;">Welcome to Bookshelf, Jacob Neterer!</h1>
+            </div>
+        </section>
+        <aside class="asideR">
+            <div align="center">
+                <h1 style="text-align: center">Recent Activity</h1>
+            </div>
+            <p>You joined Bookshelf on January 30, 2018.</p>
+        </aside>
+        {{> footer}}
+    </body>
+</html>
