@@ -6,8 +6,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const ensure = require('connect-ensure-login');
 const _ = require('lodash');
-ensure.defaultRedirectUrl = '/login';
-ensure.defaultReturnUrl = '/home';
+const path = require('path');
+const hbs = require('hbs');
 
 const port = process.env.PORT || 3000;
 
@@ -21,6 +21,9 @@ var {User} = require('./models/user');
 
 // Express Application
 var app = express();
+
+hbs.registerPartials(__dirname + '/views/partials');
+app.set('view engine', 'hbs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -99,7 +102,13 @@ app.get('/contact_us', ensure.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.get('/account', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.sendFile('/account.html', {root: __dirname + '../../account'});
+  //res.sendFile('/account.html', {root: __dirname + '../../account'});
+  console.log(req.user.first_name);
+  res.render('account.hbs', {
+    first_name: req.user.first_name,
+    last_name: req.user.last_name,
+    email: req.user.email,
+  });
 });
 
 app.get('/logout', (req, res) => {

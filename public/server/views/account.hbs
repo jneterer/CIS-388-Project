@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Ensures proper rendering and touch zooming for mobile applications -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bookshelf - Account</title>
+        <!-- Imports active_books.css file -->
+        <link href="account.css" rel="stylesheet" type="text/css">
+        <!-- Imports master.css file -->
+        <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
+        <!-- Imports stylesheet for forms -->
+        <link href="../style_templates/forms.css" rel="stylesheet" type="text/css">
+        <!-- Keeps the program from sending an error saying it can't find module html -->
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        <!-- Setting up "Bookshelf" header -->
+        <header>
+            <!-- Setting up "Bookshelf" in the Header -->
+            <div align="center">
+                <table>
+                    <tr>
+                        <td class="bookBGL" style="width:100px"></td>
+                        <td>
+                            <h1>Bookshelf</h1>
+                        </td>
+                        <td class="bookBGR" style="width:100px"></td>
+                    </tr>
+                </table>
+            </div>
+        </header>
+        <!-- Making a navigation bar -->
+        <ul>
+          <li><a href="/home">Home</a></li>
+          <li><a href="/my_library">My Library</a></li>
+          <li><a href="/active_books">Active Books</a></li>
+          <li><a href="/book_notes">Book Notes</a></li>
+          <li><a href="/book_quotes">Book Quotes</a></li>
+          <li style="float:right"><a href="/logout">Log Out</a></li>
+          <li style="float:right"><a class="active" href="/account">Account</a></li>
+          <li style="float:right"><a href="/contact_us">Contact Us</a></li>
+          <li style="float:right"><a href="/about">About</a></li>
+        </ul>
+        <!-- Sets up form with account data -->
+        <table style="width: 100%;">
+            <tr>
+                <td></td>
+                <td style="width:25%;">
+                    <form>
+                        <label for="firstName">First Name</label><br>
+                        <input type="text" id="firstName" name="firstName" value={{first_name}}><br>
+                        <label for="lastName">Last Name</label><br>
+                        <input type="text" id="lastName" name="lastName" value={{last_name}}><br>
+                        <label for="email">Email</label><br>
+                        <input type="text" id="email" name="email" value={{email}}>
+                        <br><br>
+                        <label for="current_pass">Current Password</label><br>
+                        <input type="password" id="current_pass" name="current_pass">
+                        <label for="new_pass1">New Password</label><br>
+                        <input type="password" id="new_pass1" name="new_pass1">
+                        <label for="new_pass2">Retype New Password</label><br>
+                        <input type="password" id="new_pass2" name="new_pass2">
+                        <button type="submit" id="update_account">Update</button>
+                    </form>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        {{> footer}}
+    </body>
+</html>
