@@ -29,6 +29,7 @@ app.set('view engine', 'hbs');
 
 var {mongoose} = require('./db/mongoose');
 var {User} = require('./models/user');
+var {Book} = require('./models/book');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -79,7 +80,6 @@ app.post('/create_account', (req, res) => {
 });
 
 app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
-  //res.sendFile('/home.html', {root: __dirname + '../../home'});
   res.render('home.hbs', {
     first_name: req.user.first_name,
     home: true,
@@ -94,7 +94,9 @@ app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.get('/my_library', ensure.ensureLoggedIn('/login'), (req, res) => {
-  //res.sendFile('/my_library.html', {root: __dirname + '../../my_library'});
+  var userBooks = req.user;
+  console.log(userBooks._id);
+
   res.render('my_library.hbs', {
     home: false,
     my_library: true,
@@ -107,8 +109,20 @@ app.get('/my_library', ensure.ensureLoggedIn('/login'), (req, res) => {
   });
 });
 
+app.get('/my_library/new_book', ensure.ensureLoggedIn('/login'), (req, res) => {
+  res.render('new_book.hbs', {
+    home: false,
+    my_library: true,
+    active_books: false,
+    book_notes: false,
+    book_quotes: false,
+    about: false,
+    contact_us: false,
+    account: false
+  });
+});
+
 app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
-  //res.sendFile('/active_books.html', {root: __dirname + '../../active_books'});
   res.render('active_books.hbs', {
     home: false,
     my_library: false,
@@ -122,7 +136,6 @@ app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.get('/book_notes', ensure.ensureLoggedIn('/login'), (req, res) => {
-  //res.sendFile('/book_notes.html', {root: __dirname + '../../book_notes'});
   res.render('book_notes.hbs', {
     home: false,
     my_library: false,
@@ -136,7 +149,6 @@ app.get('/book_notes', ensure.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.get('/book_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
-  //res.sendFile('/book_quotes.html', {root: __dirname + '../../book_quotes'});
   res.render('book_quotes.hbs', {
     home: false,
     my_library: false,
@@ -150,7 +162,6 @@ app.get('/book_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.get('/about', ensure.ensureLoggedIn('/login'), (req, res) => {
-  //res.sendFile('/about.html', {root: __dirname + '../../about'});
   res.render('about.hbs', {
     home: false,
     my_library: false,
@@ -164,7 +175,6 @@ app.get('/about', ensure.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.get('/contact_us', ensure.ensureLoggedIn('/login'), (req, res) => {
-  //res.sendFile('/contact_us.html', {root: __dirname + '../../contact_us'});
   res.render('contact_us.hbs', {
     home: false,
     my_library: false,
@@ -178,7 +188,6 @@ app.get('/contact_us', ensure.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.get('/account', ensure.ensureLoggedIn('/login'), (req, res) => {
-  //res.sendFile('/account.html', {root: __dirname + '../../account'});
   res.render('account.hbs', {
     first_name: req.user.first_name,
     last_name: req.user.last_name,

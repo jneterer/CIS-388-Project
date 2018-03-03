@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Ensures proper rendering and touch zooming for mobile applications -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bookshelf - Add Book</title>
+        <!-- Imports my_library.css file -->
+        <!-- <link href="../../style_templates/my_Library.css" rel="stylesheet" type="text/css"> -->
+        <!-- Imports master.css file -->
+        <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
+        <!-- Imports the tables style css sheet -->
+        <link href="../style_templates/tables.css" rel="stylesheet" type="text/css">
+        <!-- Imports stylesheet for forms -->
+        <link href="../style_templates/forms.css" rel="stylesheet" type="text/css">
+        <!-- Keeps the program from sending an error saying it can't find module html -->
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        {{> header}}
+        {{> navigation}}
+        <!-- Sets up form to add a new book -->
+        <table style="width: 100%;">
+            <tr>
+                <td></td>
+                <td style="width:25%;">
+                    <form>
+                        <label for="book_title">Book Title*</label><br>
+                        <input type="text" id="book_title" name="book_title"><br>
+
+                        <label for="authors">Authors</label><br>
+                        <input type="text" id="authors" name="authors"><br>
+
+                        <label for="ISBN">ISBN</label><br>
+                        <input type="text" id="ISBN" name="ISBN"><br>
+
+                        <label for="gift_first_name">Gifter's First Name</label><br>
+                        <input type="text" id="gift_first_name" name="gift_first_name"><br>
+
+                        <label for="gift_last_name">Gifter's Last Name</label><br>
+                        <input type="text" id="gift_last_name" name="gift_last_name"><br>
+
+                        <label for="date_gifted">Date Gifted</label><br>
+                        <input type="text" id="date_gifted" name="date_gifted"><br>
+                        
+                        <div align="center">
+                            <button type="submit" id="add_book" name="add_book">Add Book</button>
+                        </div>
+                    </form>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        {{> footer}}
+    </body>
+</html>

@@ -18,7 +18,10 @@
         {{> header}}
         {{> navigation}}
         <!-- Buttons to update, add, delete, books -->
-        <button type="button" class="add_button">Add Book</button>
+        <form action="/my_library/new_book" method="get">
+            <!-- Need to add button hover event -->
+            <button type="submit" class="add_button">Add Book</button>
+        </form>
         <!-- Table holding book data -->
         <table class="table_books">
             <tr>

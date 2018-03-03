@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 // What checks if email is validate
 const validator = require('validator');
-// Creates tokens
-const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 
@@ -45,13 +43,14 @@ var UserSchema = new Schema({
   }
 });
 
+// PRETTY SURE WE ARE NOT USING THIS ONE AT ALL
 // Changes what is sent back to the user
-UserSchema.methods.toJSON = function () {
-  var user = this;
-  var userObject = user.toObject();
-
-  return _.pick(userObject, ['_id', 'email']);
-};
+// UserSchema.methods.toJSON = function () {
+//   var user = this;
+//   var userObject = user.toObject();
+//
+//   return _.pick(userObject, ['_id', 'email']);
+// };
 
 // Code to be run before saving
 UserSchema.pre('save', function (next) {
@@ -90,5 +89,5 @@ UserSchema.statics.findByCredentials = function (email, password) {
   });
 };
 
-var User = mongoose.model('User', UserSchema)
+var User = mongoose.model('User', UserSchema);
 module.exports = {User};
