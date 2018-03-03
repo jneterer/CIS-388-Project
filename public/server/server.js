@@ -23,7 +23,8 @@ var {User} = require('./models/user');
 var app = express();
 
 hbs.registerPartials(__dirname + '/views/partials');
-app.set('view engine', 'hbs');
+app.set('view engine', 'hbs');//register views folder
+app.set('views', __dirname + '/views');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -103,7 +104,6 @@ app.get('/contact_us', ensure.ensureLoggedIn('/login'), (req, res) => {
 
 app.get('/account', ensure.ensureLoggedIn('/login'), (req, res) => {
   //res.sendFile('/account.html', {root: __dirname + '../../account'});
-  console.log(req.user.first_name);
   res.render('account.hbs', {
     first_name: req.user.first_name,
     last_name: req.user.last_name,
