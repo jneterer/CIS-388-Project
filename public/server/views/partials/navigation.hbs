@@ -1,0 +1,44 @@
+<!-- Making a navigation bar -->
+<ul>
+  {{#if home}}
+    <li><a class="active" href="/home">Home</a></li>
+  {{else}}
+    <li><a href="/home">Home</a></li>
+  {{/if}}
+  {{#if my_library}}
+    <li><a class="active" href="/my_library">My Library</a></li>
+  {{else}}
+    <li><a href="/my_library">My Library</a></li>
+  {{/if}}
+  {{#if active_books}}
+    <li><a class="active" href="/active_books">Active Books</a></li>
+  {{else}}
+    <li><a href="/active_books">Active Books</a></li>
+  {{/if}}
+  {{#if book_notes}}
+    <li><a class="active" href="/book_notes">Book Notes</a></li>
+  {{else}}
+    <li><a href="/book_notes">Book Notes</a></li>
+  {{/if}}
+  {{#if book_quotes}}
+    <li><a class="active" href="/book_quotes">Book Quotes</a></li>
+  {{else}}
+    <li><a href="/book_quotes">Book Quotes</a></li>
+  {{/if}}
+  <li style="float:right"><a href="/logout">Log Out</a></li>
+  {{#if account}}
+    <li style="float:right"><a class="active" href="/account">Account</a></li>
+  {{else}}
+    <li style="float:right"><a href="/account">Account</a></li>
+  {{/if}}
+  {{#if contact_us}}
+    <li style="float:right"><a class="active" href="/contact_us">Contact Us</a></li>
+  {{else}}
+    <li style="float:right"><a href="/contact_us">Contact Us</a></li>
+  {{/if}}
+  {{#if about}}
+    <li style="float:right"><a class="active" href="/about">About</a></li>
+  {{else}}
+    <li style="float:right"><a href="/about">About</a></li>
+  {{/if}}
+</ul>

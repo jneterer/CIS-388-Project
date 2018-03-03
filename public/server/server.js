@@ -15,19 +15,20 @@ var app = express();
 
 // In the case that it is run locally, require the config files
 if (port === 3000) {
+  // Not accessible in Heroku
   require('./config/config');
 }
 else {
+  // Only want this set if this is Heroku
   app.set('views', __dirname + '/views');
 }
+// Registers all partials
 hbs.registerPartials(__dirname + '/views/partials');
-app.set('view engine', 'hbs');//register views folder
+// Sets the view engine to .hbs
+app.set('view engine', 'hbs');
 
 var {mongoose} = require('./db/mongoose');
 var {User} = require('./models/user');
-
-
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -111,6 +112,14 @@ app.get('/account', ensure.ensureLoggedIn('/login'), (req, res) => {
     first_name: req.user.first_name,
     last_name: req.user.last_name,
     email: req.user.email,
+    home: false,
+    my_library: false,
+    active_books: false,
+    book_notes: false,
+    book_quotes: false,
+    about: false,
+    contact_us: false,
+    account: true
   });
 });
 

@@ -7,3 +7,8 @@ input[type=text] {
     margin-bottom:5px;
     width: 100%;
 }
+
+textarea {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12px;
+}
