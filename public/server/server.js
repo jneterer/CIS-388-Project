@@ -8,23 +8,26 @@ const ensure = require('connect-ensure-login');
 const _ = require('lodash');
 const path = require('path');
 const hbs = require('hbs');
-
 const port = process.env.PORT || 3000;
+
+// Express Application
+var app = express();
 
 // In the case that it is run locally, require the config files
 if (port === 3000) {
   require('./config/config');
 }
+else {
+  app.set('views', __dirname + '/views');
+}
+hbs.registerPartials(__dirname + '/views/partials');
+app.set('view engine', 'hbs');//register views folder
 
 var {mongoose} = require('./db/mongoose');
 var {User} = require('./models/user');
 
-// Express Application
-var app = express();
 
-hbs.registerPartials(__dirname + '/views/partials');
-app.set('view engine', 'hbs');//register views folder
-app.set('views', __dirname + '/views');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
