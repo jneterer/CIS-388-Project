@@ -81,6 +81,7 @@ app.post('/create_account', (req, res) => {
 app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
   //res.sendFile('/home.html', {root: __dirname + '../../home'});
   res.render('home.hbs', {
+    first_name: req.user.first_name,
     home: true,
     my_library: false,
     active_books: false,
