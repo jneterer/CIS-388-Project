@@ -99,11 +99,31 @@ app.get('/book_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.get('/about', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.sendFile('/about.html', {root: __dirname + '../../about'});
+  //res.sendFile('/about.html', {root: __dirname + '../../about'});
+  res.render('about.hbs', {
+    home: false,
+    my_library: false,
+    active_books: false,
+    book_notes: false,
+    book_quotes: false,
+    about: true,
+    contact_us: false,
+    account: false
+  });
 });
 
 app.get('/contact_us', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.sendFile('/contact_us.html', {root: __dirname + '../../contact_us'});
+  //res.sendFile('/contact_us.html', {root: __dirname + '../../contact_us'});
+  res.render('contact_us.hbs', {
+    home: false,
+    my_library: false,
+    active_books: false,
+    book_notes: false,
+    book_quotes: false,
+    about: false,
+    contact_us: true,
+    account: false
+  });
 });
 
 app.get('/account', ensure.ensureLoggedIn('/login'), (req, res) => {

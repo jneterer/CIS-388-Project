@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Ensures proper rendering and touch zooming for mobile applications -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bookshelf - About</title>
+        <!-- Imports active_books.css file -->
+        <link href="about.css" rel="stylesheet" type="text/css">
+        <!-- Imports master.css file -->
+        <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
+        <!-- Keeps the program from sending an error saying it can't find module html -->
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        {{> header}}
+        {{> navigation}}
+        <div align="center" style="margin-left: 20%; margin-right: 20%;">
+            <h2>What is it that we do?</h2>
+            <p>It is my job to make your lives simpler. Have you ever lent a book to someone and never
+                got it back? Was it because you forgot who you gave it to, what the book was, when you
+                gave it to them? I know I have. Bookshelf offers many awesome features, perfect for your
+                very own at-home "libraries." We allow you to have a record of all of your books you own,
+                where each book has a status indicating whether it is "checked out" (currently being
+                loaned) or "checked in" (on your shelf). When a book is checked out, we help you track
+                who has it, when it was loaned, and the individuals contact information along with some
+                comments about the loan. In addition, we let you log notes on the books and keep track of
+                quotes you want to save while reading.</p>
+            <h2>Your Library</h2>
+            <p>Your library is...</p>
+            <h2>Active Books</h2>
+            <p>Your Active Books are...</p>
+            <h2>Book Notes</h2>
+            <p>Your Book Notes are...</p>
+            <h2>Book Quotes</h2>
+            <p>Your Book Quotes...</p>
+        </div>
+        {{> footer}}
+    </body>
+</html>
