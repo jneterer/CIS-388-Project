@@ -94,18 +94,44 @@ app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.get('/my_library', ensure.ensureLoggedIn('/login'), (req, res) => {
-  var userBooks = req.user;
-  console.log(userBooks._id);
-
-  res.render('my_library.hbs', {
-    home: false,
-    my_library: true,
-    active_books: false,
-    book_notes: false,
-    book_quotes: false,
-    about: false,
-    contact_us: false,
-    account: false
+  Book.find({user_id: req.user._id}, (err, books) => {
+    if (!err) {
+      var book_titles = new Array();
+      var book_authors = new Array();
+      var book_status = new Array();
+      var book_gifterFN = new Array();
+      var book_gifterLN = new Array();
+      var book_date_gifted = new Array();
+      for (i = 0; i < books.length; i++) {
+        book_titles.push(books[i].book_title.toString());
+        book_authors.push(books[i].authors.toString());
+        book_status.push(books[i].actively_lending);
+        book_gifterFN.push(books[i].gift_first_name);
+        book_gifterLN.push(books[i].gift_last_name);
+        book_date_gifted.push(books[i].date_gifted);
+      }
+      console.log(books[1].actively_lending);
+      res.render('my_library.hbs', {
+        home: false,
+        my_library: true,
+        active_books: false,
+        book_notes: false,
+        book_quotes: false,
+        about: false,
+        contact_us: false,
+        account: false,
+        books: books,
+        book_titles: book_titles,
+        book_authors: book_authors,
+        book_status: book_status,
+        book_gifterFN: book_gifterFN,
+        book_gifterLN: book_gifterLN,
+        book_date_gifted: book_date_gifted
+      });
+      console.log(books);
+    } else {
+      console.log(err);
+    }
   });
 });
 
@@ -125,15 +151,8 @@ app.get('/my_library/new_book', ensure.ensureLoggedIn('/login'), (req, res) => {
 app.post('/my_library/new_book', (req, res) => {
   var body = _.pick(req.body, ['book_title', 'authors', 'ISBN', 'gift_first_name', 'gift_last_name', 'date_gifted']);
   var book = new Book(body);
+  book.user_id = req.user._id;
   book.save();
-  User.findById(req.user._id, (err, user) => {
-    if (!err) {
-      user.books.push(book._id);
-      user.save();
-    } else {
-      console.log(err);
-    }
-  });
   res.redirect('/my_library');
 });
 

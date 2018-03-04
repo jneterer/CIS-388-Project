@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 // Defining Book UserSchema
 var Book = mongoose.model('Book', {
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
   book_title: {
     type: String,
     required: true,
