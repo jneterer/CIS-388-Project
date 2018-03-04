@@ -7,3 +7,9 @@ input {
     margin-bottom:5px;
     width: 100%;
 }
+
+select {
+  margin-top: 2px;
+  margin-bottom:5px;
+  width: 50%;
+}

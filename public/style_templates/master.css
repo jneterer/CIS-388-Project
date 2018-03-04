@@ -80,3 +80,8 @@ button {
     margin-bottom: 5px;
     padding: 5px 10px;
 }
+
+textarea {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12px;
+}

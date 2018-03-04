@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Ensures proper rendering and touch zooming for mobile applications -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bookshelf - Add Note</title>
+        <!-- Imports master.css file -->
+        <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
+        <!-- Imports the tables style css sheet -->
+        <link href="../style_templates/tables.css" rel="stylesheet" type="text/css">
+        <!-- Imports stylesheet for forms -->
+        <link href="../style_templates/forms.css" rel="stylesheet" type="text/css">
+        <!-- Keeps the program from sending an error saying it can't find module html -->
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        {{> header}}
+        {{> navigation}}
+        <!-- Sets up form to add a new book -->
+        <table style="width: 100%;">
+            <tr>
+                <td></td>
+                <td style="width:25%;">
+                    <form action="/book_notes/new_note" method="post">
+                        <label for="book_title">Select Book</label><br>
+                        <select id="book_title" name="book_title">
+                          {{#each books}}
+                            <option>{{book_title}}</option>
+                          {{/each}}
+                        </select><br>
+
+                        <label for="note_title">Note Title</label><br>
+                        <input type="text" id="note_title" name="note_title"><br>
+
+                        <label for="note">Note</label><br>
+                        <textarea id="note" name="note" rows="10" cols="45"></textarea><br>
+
+                        <div align="center">
+                            <button type="submit" id="add_note" name="add_note">Add Note</button>
+                        </div>
+                    </form>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        {{> footer}}
+    </body>
+</html>

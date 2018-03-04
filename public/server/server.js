@@ -30,6 +30,7 @@ app.set('view engine', 'hbs');
 var {mongoose} = require('./db/mongoose');
 var {User} = require('./models/user');
 var {Book} = require('./models/book');
+var {Book_Note} = require('./models/book_notes');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -148,16 +149,51 @@ app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.get('/book_notes', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.render('book_notes.hbs', {
-    home: false,
-    my_library: false,
-    active_books: false,
-    book_notes: true,
-    book_quotes: false,
-    about: false,
-    contact_us: false,
-    account: false
+  Book_Note.find({user_id: req.user._id}, (err, notes) => {
+    if (!err) {
+      res.render('book_notes.hbs', {
+        home: false,
+        my_library: false,
+        active_books: false,
+        book_notes: true,
+        book_quotes: false,
+        about: false,
+        contact_us: false,
+        account: false,
+        notes: notes
+      });
+    } else {
+      console.log(err);
+    }
   });
+});
+
+app.get('/book_notes/new_note', ensure.ensureLoggedIn('/login'), (req, res) => {
+  Book.find({user_id: req.user._id}, (err, books) => {
+    if (!err) {
+      res.render('new_note.hbs', {
+        home: false,
+        my_library: false,
+        active_books: false,
+        book_notes: true,
+        book_quotes: false,
+        about: false,
+        contact_us: false,
+        account: false,
+        books: books
+      });
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+app.post('/book_notes/new_note', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var body = _.pick(req.body, ['book_title', 'note_title', 'note']);
+  var book_note = new Book_Note(body);
+  book_note.user_id = req.user._id;
+  book_note.save();
+  res.redirect('/book_notes');
 });
 
 app.get('/book_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {

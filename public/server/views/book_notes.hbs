@@ -17,6 +17,11 @@
     <body>
         {{> header}}
         {{> navigation}}
+        <!-- Buttons to update, add, delete, books -->
+        <form action="/book_notes/new_note" method="get">
+            <!-- Need to add button hover event -->
+            <button type="submit" class="add_button">Add Note</button>
+        </form>
         <!-- Table holding book data -->
         <table class="table_books">
             <tr>
@@ -25,6 +30,16 @@
                 <th class="th_books">Note Title</th>
                 <th class="th_books">Note</th>
             </tr>
+            {{#if notes}}
+              {{#each notes}}
+                <tr class="tr_books">
+                    <td class="td_books">{{book_title}}</td>
+                    <td class="td_books">{{date_added}}</td>
+                    <td class="td_books">{{note_title}}</td>
+                    <td class="td_books">{{note}}</td>
+                </tr>
+              {{/each}}
+            {{else}}
             <tr class="tr_books">
                 <td class="td_books"></td>
                 <td class="td_books"></td>
@@ -37,6 +52,7 @@
                 <td class="td_books"></td>
                 <td class="td_books"></td>
             </tr>
+            {{/if}}
         </table>
         {{> footer}}
     </body>
