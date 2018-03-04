@@ -122,6 +122,21 @@ app.get('/my_library/new_book', ensure.ensureLoggedIn('/login'), (req, res) => {
   });
 });
 
+app.post('/my_library/new_book', (req, res) => {
+  var body = _.pick(req.body, ['book_title', 'authors', 'ISBN', 'gift_first_name', 'gift_last_name', 'date_gifted']);
+  var book = new Book(body);
+  book.save();
+  User.findById(req.user._id, (err, user) => {
+    if (!err) {
+      user.books.push(book._id);
+      user.save();
+    } else {
+      console.log(err);
+    }
+  });
+  res.redirect('/my_library');
+});
+
 app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
   res.render('active_books.hbs', {
     home: false,

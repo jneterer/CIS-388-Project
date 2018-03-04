@@ -5,16 +5,21 @@ var Book = mongoose.model('Book', {
   book_title: {
     type: String,
     required: true,
+    unique: true,
     trim: true
   },
   authors: {
-    type: Array,
+    type: String,
     required: false
   },
   actively_lending: {
     type: Boolean,
-    required: true,
+    required: false,
     default: false
+  },
+  ISBN: {
+    type: String,
+    required: false
   },
   gift_first_name: {
     type: String,

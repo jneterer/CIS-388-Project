@@ -5,8 +5,6 @@
         <!-- Ensures proper rendering and touch zooming for mobile applications -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Bookshelf - Add Book</title>
-        <!-- Imports my_library.css file -->
-        <!-- <link href="../../style_templates/my_Library.css" rel="stylesheet" type="text/css"> -->
         <!-- Imports master.css file -->
         <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
         <!-- Imports the tables style css sheet -->
@@ -24,7 +22,7 @@
             <tr>
                 <td></td>
                 <td style="width:25%;">
-                    <form>
+                    <form action="/my_library/new_book" method="post">
                         <label for="book_title">Book Title*</label><br>
                         <input type="text" id="book_title" name="book_title"><br>
 
@@ -42,7 +40,7 @@
 
                         <label for="date_gifted">Date Gifted</label><br>
                         <input type="text" id="date_gifted" name="date_gifted"><br>
-                        
+
                         <div align="center">
                             <button type="submit" id="add_book" name="add_book">Add Book</button>
                         </div>
