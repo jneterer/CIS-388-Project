@@ -22,7 +22,7 @@
             <!-- Need to add button hover event -->
             <button type="submit" class="add_button">Add Book</button>
         </form>
-
+        <!-- Table holding book data -->
         <table class="table_books">
           <tr>
               <th class="th_books">Book Title</th>
@@ -32,48 +32,39 @@
               <th class="th_books">Gifter's Last Name</th>
               <th class="th_books">Gifted Date</th>
           </tr>
-          {{#each books}}
+          {{#if books}}
+            {{#each books}}
+              <tr class="tr_books">
+                  <td class="td_books">{{book_title}}</td>
+                  <td class="td_books">{{authors}}</td>
+                  {{#if actively_lending}}
+                    <td class="td_books">True</td>
+                  {{else}}
+                    <td class="td_books">False</td>
+                  {{/if}}
+                  <td class="td_books">{{gift_first_name}}</td>
+                  <td class="td_books">{{gift_last_name}}</td>
+                  <td class="td_books">{{date_gifted}}</td>
+              </tr>
+            {{/each}}
+          {{else}}
             <tr class="tr_books">
-                <td class="td_books">{{book_title}}</td>
-                <td class="td_books">{{authors}}</td>
-                {{#if actively_lending}}
-                  <td class="td_books">True</td>
-                {{else}}
-                  <td class="td_books">False</td>
-                {{/if}}
-                <td class="td_books">{{gift_first_name}}</td>
-                <td class="td_books">{{gift_last_name}}</td>
-                <td class="td_books">{{date_gifted}}</td>
-            </tr>
-          {{/each}}
-        </table>
-
-        <!-- Table holding book data -->
-        <table class="table_books">
-            <tr>
-                <th class="th_books">Book Title</th>
-                <th class="th_books">Author's</th>
-                <th class="th_books">Date Added</th>
-                <th class="th_books">Status</th>
-                <th class="th_books">Gifter's Name</th>
-                <th class="th_books">Gifted Date</th>
+              <td class="td_books"></td>
+              <td class="td_books"></td>
+              <td class="td_books"></td>
+              <td class="td_books"></td>
+              <td class="td_books"></td>
+              <td class="td_books"></td>
             </tr>
             <tr class="tr_books">
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
+              <td class="td_books"></td>
+              <td class="td_books"></td>
+              <td class="td_books"></td>
+              <td class="td_books"></td>
+              <td class="td_books"></td>
+              <td class="td_books"></td>
             </tr>
-            <tr class="tr_books">
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-            </tr>
+          {{/if}}
         </table>
         {{> footer}}
     </body>
