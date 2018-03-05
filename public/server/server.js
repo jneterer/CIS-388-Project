@@ -31,6 +31,7 @@ var {mongoose} = require('./db/mongoose');
 var {User} = require('./models/user');
 var {Book} = require('./models/book');
 var {Book_Note} = require('./models/book_notes');
+var {Book_Quote} = require('./models/book_quotes');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -135,6 +136,19 @@ app.post('/my_library/new_book', (req, res) => {
   res.redirect('/my_library');
 });
 
+app.get('/my_library/view_book', (req, res) => {
+  res.render('view_book.hbs', {
+    home: false,
+    my_library: true,
+    active_books: false,
+    book_notes: false,
+    book_quotes: false,
+    about: false,
+    contact_us: false,
+    account: false
+  });
+});
+
 app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
   res.render('active_books.hbs', {
     home: false,
@@ -197,16 +211,52 @@ app.post('/book_notes/new_note', ensure.ensureLoggedIn('/login'), (req, res) => 
 });
 
 app.get('/book_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.render('book_quotes.hbs', {
-    home: false,
-    my_library: false,
-    active_books: false,
-    book_notes: false,
-    book_quotes: true,
-    about: false,
-    contact_us: false,
-    account: false
+  Book_Quote.find({user_id: req.user._id}, (err, quotes) => {
+    if (!err) {
+      res.render('book_quotes.hbs', {
+        home: false,
+        my_library: false,
+        active_books: false,
+        book_notes: false,
+        book_quotes: true,
+        about: false,
+        contact_us: false,
+        account: false,
+        quotes
+      });
+    }
+    else {
+      console.log(err);
+    }
   });
+});
+
+app.get('/book_quotes/new_quote', ensure.ensureLoggedIn('/login'), (req, res) => {
+  Book.find({user_id: req.user._id}, (err, books) => {
+    if (!err) {
+      res.render('new_quote.hbs', {
+        home: false,
+        my_library: false,
+        active_books: false,
+        book_notes: false,
+        book_quotes: true,
+        about: false,
+        contact_us: false,
+        account: false,
+        books: books
+      });
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+app.post('/book_quotes/new_quote', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var body = _.pick(req.body, ['book_title', 'quote_title', 'quote']);
+  var book_quote = new Book_Quote(body);
+  book_quote.user_id = req.user._id;
+  book_quote.save();
+  res.redirect('/book_quotes');
 });
 
 app.get('/about', ensure.ensureLoggedIn('/login'), (req, res) => {

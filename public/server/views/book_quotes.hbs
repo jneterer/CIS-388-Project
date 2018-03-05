@@ -17,26 +17,41 @@
     <body>
         {{> header}}
         {{> navigation}}
+        <form action="/book_quotes/new_quote" method="get">
+            <!-- Need to add button hover event -->
+            <button type="submit" class="add_button">Add Quote</button>
+        </form>
         <!-- Table holding book data -->
         <table class="table_books">
             <tr>
                 <th class="th_books">Book Title</th>
-                <th class="th_books">Date Quote Added</th>
                 <th class="th_books">Quote Title</th>
                 <th class="th_books">Quote</th>
+                <th class="th_books">Date Quote Added</th>
             </tr>
-            <tr class="tr_books">
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-            </tr>
-            <tr class="tr_books">
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-            </tr>
+            {{#if quotes}}
+              {{#each quotes}}
+                <tr class="tr_books">
+                    <td class="td_books">{{book_title}}</td>
+                    <td class="td_books">{{quote_title}}</td>
+                    <td class="td_books">{{quote}}</td>
+                    <td class="td_books">{{date_added}}</td>
+                </tr>
+              {{/each}}
+            {{else}}
+              <tr class="tr_books">
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+              </tr>
+              <tr class="tr_books">
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+              </tr>
+            {{/if}}
         </table>
         {{> footer}}
     </body>

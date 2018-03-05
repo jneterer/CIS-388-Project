@@ -23,6 +23,7 @@
             <button type="submit" class="add_button">Add Book</button>
         </form>
         <!-- Table holding book data -->
+        <form>
         <table class="table_books">
           <tr>
               <th class="th_books">Book Title</th>
@@ -34,7 +35,7 @@
           </tr>
           {{#if books}}
             {{#each books}}
-              <tr class="tr_books">
+              <tr class="tr_books" onclick="location.href='/my_library/view_book'">
                   <td class="td_books">{{book_title}}</td>
                   <td class="td_books">{{authors}}</td>
                   {{#if actively_lending}}
@@ -66,6 +67,7 @@
             </tr>
           {{/if}}
         </table>
+      </form>
         {{> footer}}
     </body>
 </html>

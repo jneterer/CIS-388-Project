@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <!-- Ensures proper rendering and touch zooming for mobile applications -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bookshelf - Add Note</title>
+        <title>Bookshelf - Add Quote</title>
         <!-- Imports master.css file -->
         <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
         <!-- Imports the tables style css sheet -->
@@ -18,14 +18,14 @@
         {{> header}}
         {{> navigation}}
         <div align="center">
-          <h1>Add A Note To One Of Your Books!<h1>
+          <h1>Add A Quote To Your Book!<h1>
         </div>
         <!-- Sets up form to add a new book -->
         <table style="width: 100%;">
             <tr>
                 <td></td>
                 <td style="width:25%;">
-                    <form action="/book_notes/new_note" method="post">
+                    <form action="/book_quotes/new_quote" method="post">
                         <label for="book_title">Select Book</label><br>
                         <select id="book_title" name="book_title">
                           {{#each books}}
@@ -33,14 +33,14 @@
                           {{/each}}
                         </select><br>
 
-                        <label for="note_title">Note Title</label><br>
-                        <input type="text" id="note_title" name="note_title"><br>
+                        <label for="quote_title">Quote Title</label><br>
+                        <input type="text" id="quote_title" name="quote_title"><br>
 
-                        <label for="note">Note</label><br>
-                        <textarea id="note" name="note" rows="10" cols="45"></textarea><br>
+                        <label for="quote">Quote</label><br>
+                        <textarea id="quote" name="quote" rows="10" cols="45"></textarea><br>
 
                         <div align="center">
-                            <button type="submit" id="add_note" name="add_note">Add Note</button>
+                            <button type="submit" id="add_quote" name="add_quote">Add Quote</button>
                         </div>
                     </form>
                 </td>
