@@ -22,6 +22,15 @@
             <!-- Need to add button hover event -->
             <button type="submit" class="add_button">Add Book</button>
         </form>
+        <form action="/my_library/manage_books" method="post">
+            <label for="select_book_title">Select Book</label><br>
+            <select id="select_book_title" name="select_book_title">
+              {{#each books}}
+                <option>{{book_title}}</option>
+              {{/each}}
+            </select><br>
+            <button type="submit" class="add_button">Manage Book</button>
+        </form>
         <!-- Table holding book data -->
         <form>
         <table class="table_books">
@@ -35,7 +44,7 @@
           </tr>
           {{#if books}}
             {{#each books}}
-              <tr class="tr_books" onclick="location.href='/my_library/view_book'">
+              <tr class="tr_books">
                   <td class="td_books">{{book_title}}</td>
                   <td class="td_books">{{authors}}</td>
                   {{#if actively_lending}}

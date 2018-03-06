@@ -128,7 +128,7 @@ app.get('/my_library/new_book', ensure.ensureLoggedIn('/login'), (req, res) => {
   });
 });
 
-app.post('/my_library/new_book', (req, res) => {
+app.post('/my_library/new_book', ensure.ensureLoggedIn('/login'), (req, res) => {
   var body = _.pick(req.body, ['book_title', 'authors', 'ISBN', 'gift_first_name', 'gift_last_name', 'date_gifted']);
   var book = new Book(body);
   book.user_id = req.user._id;
@@ -136,16 +136,50 @@ app.post('/my_library/new_book', (req, res) => {
   res.redirect('/my_library');
 });
 
-app.get('/my_library/view_book', (req, res) => {
-  res.render('view_book.hbs', {
-    home: false,
-    my_library: true,
-    active_books: false,
-    book_notes: false,
-    book_quotes: false,
-    about: false,
-    contact_us: false,
-    account: false
+app.post('/my_library/manage_books', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var selected_book_title = _.pick(req.body, ['select_book_title']);
+  Book.find({user_id: req.user._id, book_title: selected_book_title.select_book_title}, (err, book) => {
+    if (!err) {
+      console.log(book[0].date_gifted);
+      var date = book[0].date_gifted;
+      var newDate = new Date();
+      newDate.format('mm-dd-yy');
+      console.log(newDate);
+      //.substring(0, 10)
+      res.render('manage_books.hbs', {
+        home: false,
+        my_library: true,
+        active_books: false,
+        book_notes: false,
+        book_quotes: false,
+        about: false,
+        contact_us: false,
+        account: false,
+        book: book,
+        date: date
+      });
+    }
+    else {
+      console.log(err);
+    }
+  });
+});
+
+app.post('/my_library/manage_books/save', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var edited_book = _.pick(req.body, ['book_title', 'authors', 'ISBN', 'actively_lending', 'gift_first_name', 'gift_last_name', 'date_gifted', 'book_id']);
+  Book.findByIdAndUpdate({user_id: req.user._id, _id: edited_book.book_id}, {$set: {
+    book_title: edited_book.book_title,
+    authors: edited_book.authors,
+    ISBN: edited_book.ISBN,
+    gift_first_name: edited_book.gift_first_name,
+    gift_last_name: edited_book.gift_last_name,
+    date_gifted: edited_book.date_gifted
+  }}, (err, book) => {
+    if (!err) {
+      res.send(book);
+    } else {
+      console.log(err);
+    }
   });
 });
 

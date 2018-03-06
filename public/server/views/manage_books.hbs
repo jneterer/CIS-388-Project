@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Ensures proper rendering and touch zooming for mobile applications -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bookshelf - Manage Book</title>
+        <!-- Imports master.css file -->
+        <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
+        <!-- Imports the tables style css sheet -->
+        <link href="../style_templates/tables.css" rel="stylesheet" type="text/css">
+        <!-- Imports stylesheet for forms -->
+        <link href="../style_templates/forms.css" rel="stylesheet" type="text/css">
+        <!-- Keeps the program from sending an error saying it can't find module html -->
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        {{> header}}
+        {{> navigation}}
+        <div align="center">
+          <h1>Edit, Delete, or Just View Your Book!<h1>
+        </div>
+        <!-- Sets up form to add a new book -->
+        <table style="width: 100%;">
+            <tr>
+                <td></td>
+                <td style="width:25%;">
+                    <form action="/my_library/manage_books/save" method="post" id="manage_book_form">
+                      {{#each book}}
+                          <label for="book_title">Book Title</label><br>
+                          <input disabled="true" type="text" id="book_title" name="book_title" value={{book_title}}><br>
+
+                          <label for="authors">Authors</label><br>
+                          <input disabled="true" type="text" id="authors" name="authors" value={{authors}}><br>
+
+                          <label for="ISBN">ISBN</label><br>
+                          <input disabled="true" type="text" id="ISBN" name="ISBN" value={{ISBN}}><br>
+
+                          <label for="actively_lending">Actively Lending</label><br>
+                          <input disabled="true" type="text" id="actively_lending" name="actively_lending" value={{actively_lending}}><br>
+
+                          <label for="gift_first_name">Gifter's First Name</label><br>
+                          <input disabled="true" type="text" id="gift_first_name" name="gift_first_name" value={{gift_first_name}}><br>
+
+                          <label for="gift_last_name">Gifter's Last Name</label><br>
+                          <input disabled="true" type="text" id="gift_last_name" name="gift_last_name" value={{gift_last_name}}><br>
+
+                          <label for="date_gifted">Date Gifted</label><br>
+                          <input disabled="true" type="date" id="date_gifted" name="date_gifted" value={{date}}><br>
+
+                          <button onclick="makeEditable();" type="button" id="edit_book" name="edit_book">Edit</button>
+                          <script>
+                            function makeEditable() {
+                              document.getElementById('book_title').disabled = false;
+                              document.getElementById('authors').disabled = false;
+                              document.getElementById('ISBN').disabled = false;
+                              document.getElementById('gift_first_name').disabled = false;
+                              document.getElementById('gift_last_name').disabled = false;
+                              document.getElementById('date_gifted').disabled = false;
+                              document.getElementById('cancel_edit').disabled = false;
+                              document.getElementById('save').disabled = false;
+                            }
+                          </script>
+                          <button onclick="cancelEdit();" disabled="true" type="button" id="cancel_edit" name="cancel_edit">Cancel</button>
+                          <script>
+                            function cancelEdit() {
+                              var r = confirm("Are you sure you want to cancel? All progress will be lost.");
+                              if (r === true) {
+                                document.getElementById('manage_book_form').reset();
+                                document.getElementById('book_title').disabled = true;
+                                document.getElementById('authors').disabled = true;
+                                document.getElementById('ISBN').disabled = true;
+                                document.getElementById('gift_first_name').disabled = true;
+                                document.getElementById('gift_last_name').disabled = true;
+                                document.getElementById('date_gifted').disabled = true;
+                                document.getElementById('cancel_edit').disabled = true;
+                                document.getElementById('save').disabled = true;
+                              }
+                            }
+                          </script>
+                          <button disabled="true" type="submit" id="save" name="save">Save</button>
+                          <input hidden="true" type="text" id="book_id" name="book_id" value={{_id}}><br>
+                        {{/each}}
+                    </form>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        {{> footer}}
+    </body>
+</html>

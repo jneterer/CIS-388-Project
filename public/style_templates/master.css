@@ -81,6 +81,10 @@ button {
     padding: 5px 10px;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 textarea {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 12px;
