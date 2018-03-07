@@ -19,4 +19,5 @@ function cancelEdit() {
     document.getElementById('gift_last_name').disabled = true;
     document.getElementById('cancel_edit').disabled = true;
     document.getElementById('save').disabled = true;
+  }
 }
