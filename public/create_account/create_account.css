@@ -42,6 +42,10 @@ button {
     color: white;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 legend {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -55,4 +59,3 @@ a {
     font-family: sans-serif;
     color: white;
 }
-

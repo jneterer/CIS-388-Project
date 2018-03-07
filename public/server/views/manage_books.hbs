@@ -37,55 +37,49 @@
                           <input disabled="true" type="text" id="ISBN" name="ISBN" value={{ISBN}}><br>
 
                           <label for="actively_lending">Actively Lending</label><br>
-                          <input disabled="true" type="text" id="actively_lending" name="actively_lending" value={{actively_lending}}><br>
-
+                          {{#if actively_lending}}
+                            <input disabled="true" type="text" id="actively_lending" name="actively_lending" value="True"><br>
+                          {{else}}
+                            <input disabled="true" type="text" id="actively_lending" name="actively_lending" value="False"><br>
+                          {{/if}}
                           <label for="gift_first_name">Gifter's First Name</label><br>
                           <input disabled="true" type="text" id="gift_first_name" name="gift_first_name" value={{gift_first_name}}><br>
 
                           <label for="gift_last_name">Gifter's Last Name</label><br>
                           <input disabled="true" type="text" id="gift_last_name" name="gift_last_name" value={{gift_last_name}}><br>
 
-                          <label for="date_gifted">Date Gifted</label><br>
-                          <input disabled="true" type="date" id="date_gifted" name="date_gifted" value={{date}}><br>
+                          <div align="center">
+                            <button style="width:49%; float: left;" onclick="makeEditable();" type="button" id="edit_book" name="edit_book">Edit</button>
+                            <button style="width:49%; float: right;" onclick="cancelEdit();" disabled="true" type="button" id="cancel_edit" name="cancel_edit">Cancel</button>
+                          </div>
 
-                          <button onclick="makeEditable();" type="button" id="edit_book" name="edit_book">Edit</button>
-                          <script>
-                            function makeEditable() {
-                              document.getElementById('book_title').disabled = false;
-                              document.getElementById('authors').disabled = false;
-                              document.getElementById('ISBN').disabled = false;
-                              document.getElementById('gift_first_name').disabled = false;
-                              document.getElementById('gift_last_name').disabled = false;
-                              document.getElementById('date_gifted').disabled = false;
-                              document.getElementById('cancel_edit').disabled = false;
-                              document.getElementById('save').disabled = false;
-                            }
-                          </script>
-                          <button onclick="cancelEdit();" disabled="true" type="button" id="cancel_edit" name="cancel_edit">Cancel</button>
-                          <script>
-                            function cancelEdit() {
-                              var r = confirm("Are you sure you want to cancel? All progress will be lost.");
-                              if (r === true) {
-                                document.getElementById('manage_book_form').reset();
-                                document.getElementById('book_title').disabled = true;
-                                document.getElementById('authors').disabled = true;
-                                document.getElementById('ISBN').disabled = true;
-                                document.getElementById('gift_first_name').disabled = true;
-                                document.getElementById('gift_last_name').disabled = true;
-                                document.getElementById('date_gifted').disabled = true;
-                                document.getElementById('cancel_edit').disabled = true;
-                                document.getElementById('save').disabled = true;
-                              }
-                            }
-                          </script>
-                          <button disabled="true" type="submit" id="save" name="save">Save</button>
+                          <button style="width:100%;" disabled="true" type="submit" id="save" name="save">Save</button>
                           <input hidden="true" type="text" id="book_id" name="book_id" value={{_id}}><br>
                         {{/each}}
                     </form>
                 </td>
                 <td></td>
             </tr>
+            <tr>
+              <td></td>
+              <td>
+                <form>
+                  <button style="width:100%;" type="submit" id="delete" name="delete">Delete</button>
+                </form>
+              </td>
+              <td></td>
+            </tr><tr>
+              <td></td>
+              <td>
+                <form>
+                  <button style="width:100%;" type="submit" id="manage_lend" name="manage_lend">Manage Lend</button>
+                </form>
+              </td>
+              <td></td>
+            </tr>
         </table>
         {{> footer}}
+    		<!-- imports manage_books.js to use its functions -->
+    		<script src="../../scripts/manage_books.js"></script>
     </body>
 </html>

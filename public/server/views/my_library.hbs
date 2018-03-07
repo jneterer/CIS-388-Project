@@ -36,11 +36,11 @@
         <table class="table_books">
           <tr>
               <th class="th_books">Book Title</th>
-              <th class="th_books">Author's</th>
+              <th class="th_books">Authors</th>
               <th class="th_books">Status</th>
+              <th class="th_books">ISBN</th>
               <th class="th_books">Gifter's First Name</th>
               <th class="th_books">Gifter's Last Name</th>
-              <th class="th_books">Gifted Date</th>
           </tr>
           {{#if books}}
             {{#each books}}
@@ -52,9 +52,9 @@
                   {{else}}
                     <td class="td_books">False</td>
                   {{/if}}
+                  <td class="td_books">{{ISBN}}</td>
                   <td class="td_books">{{gift_first_name}}</td>
                   <td class="td_books">{{gift_last_name}}</td>
-                  <td class="td_books">{{date_gifted}}</td>
               </tr>
             {{/each}}
           {{else}}
