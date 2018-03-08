@@ -24,20 +24,19 @@
                   <button type="submit" class="add_button">Add Book</button>
               </form>
             </td>
-            <td style="width:10%;"></td>
-              <form action="/my_library/manage_books" method="post">
-                <td>
-                  <!-- <label for="select_book_title">Select Book</label><br> -->
-                  Select Book <select id="select_book_title" name="select_book_title">
-                    {{#each books}}
-                      <option>{{book_title}}</option>
-                    {{/each}}
-                  </select><br>
-                </td>
-                <td>
-                    <button type="submit" class="add_button">Manage Book</button>
-                </td>
-              </form>
+            <td style="width: 10%;"></td>
+            <form action="/my_library/manage_books" method="post">
+              <td>
+                Select Book: <select id="select_book_title" name="select_book_title">
+                  {{#each books}}
+                    <option>{{book_title}}</option>
+                  {{/each}}
+                </select><br>
+              </td>
+              <td>
+                <button type="submit" class="add_button">Manage Book</button>
+              </td>
+            </form>
             <td></td>
           </tr>
         </table>

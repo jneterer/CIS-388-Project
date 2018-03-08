@@ -266,6 +266,42 @@ app.post('/book_notes/new_note', ensure.ensureLoggedIn('/login'), (req, res) => 
   res.redirect('/book_notes');
 });
 
+app.post('/book_notes/manage_notes', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var selected_note_title = _.pick(req.body, ['select_note_title']);
+  Book_Note.find({user_id: req.user._id, note_title: selected_note_title.select_note_title}, (err, note) => {
+    if (!err) {
+      res.render('manage_notes.hbs', {
+        home: false,
+        my_library: false,
+        active_books: false,
+        book_notes: true,
+        book_quotes: false,
+        about: false,
+        contact_us: false,
+        account: false,
+        note: note
+      });
+    }
+    else {
+      console.log(err);
+    }
+  });
+});
+
+app.post('/book_notes/manage_notes/save', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var edited_note = _.pick(req.body, ['note_id', 'note_title', 'note']);
+  Book_Note.findByIdAndUpdate({user_id: req.user._id, _id: edited_note.note_id}, {$set: {
+    note_title: edited_note.note_title,
+    note: edited_note.note
+  }}, (err, book) => {
+    if (!err) {
+      res.redirect('/book_notes');
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 app.get('/book_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
   Book_Quote.find({user_id: req.user._id}, (err, quotes) => {
     if (!err) {
@@ -278,7 +314,7 @@ app.get('/book_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
         about: false,
         contact_us: false,
         account: false,
-        quotes
+        quote: quotes
       });
     }
     else {
@@ -313,6 +349,29 @@ app.post('/book_quotes/new_quote', ensure.ensureLoggedIn('/login'), (req, res) =
   book_quote.user_id = req.user._id;
   book_quote.save();
   res.redirect('/book_quotes');
+});
+
+app.post('/book_quotes/manage_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var selected_quote_title = _.pick(req.body, ['select_quote_title']);
+  console.log(selected_quote_title.select_quote_title);
+  Book_Quote.find({user_id: req.user._id, note_title: selected_quote_title.select_quote_title}, (err, quote) => {
+    if (!err) {
+      res.render('manage_quotes.hbs', {
+        home: false,
+        my_library: false,
+        active_books: false,
+        book_notes: false,
+        book_quotes: true,
+        about: false,
+        contact_us: false,
+        account: false,
+        quote: quote
+      });
+    }
+    else {
+      console.log(err);
+    }
+  });
 });
 
 app.get('/about', ensure.ensureLoggedIn('/login'), (req, res) => {

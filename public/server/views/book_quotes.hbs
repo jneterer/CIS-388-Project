@@ -15,10 +15,29 @@
     <body>
         {{> header}}
         {{> navigation}}
-        <form action="/book_quotes/new_quote" method="get">
-            <!-- Need to add button hover event -->
-            <button type="submit" class="add_button">Add Quote</button>
-        </form>
+        <table>
+          <tr>
+            <td>
+              <form action="/book_quotes/new_quote" method="get">
+                  <!-- Need to add button hover event -->
+                  <button type="submit" class="add_button">Add Quote</button>
+              </form>
+            </td>
+            <td style="width: 10%;"></td>
+            <form action="/book_quotes/manage_quotes" method="post">
+              <td>
+                Select Quote: <select id="select_quote_title" name="select_quote_title">
+                  {{#each quote}}
+                    <option>{{quote_title}}</option>
+                  {{/each}}
+                </select><br>
+              </td>
+              <td>
+                <button type="submit" class="add_button">Manage Quote</button>
+              </td>
+            </form>
+          </tr>
+        </table>
         <!-- Table holding book data -->
         <table class="table_books">
             <tr>
@@ -27,8 +46,8 @@
                 <th class="th_books">Quote</th>
                 <th class="th_books">Date Quote Added</th>
             </tr>
-            {{#if quotes}}
-              {{#each quotes}}
+            {{#if quote}}
+              {{#each quote}}
                 <tr class="tr_books">
                     <td class="td_books">{{book_title}}</td>
                     <td class="td_books">{{quote_title}}</td>

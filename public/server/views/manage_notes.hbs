@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Ensures proper rendering and touch zooming for mobile applications -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bookshelf - Manage Note</title>
+        <!-- Imports master.css file -->
+        <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
+        <!-- Imports the tables style css sheet -->
+        <link href="../style_templates/tables.css" rel="stylesheet" type="text/css">
+        <!-- Imports stylesheet for forms -->
+        <link href="../style_templates/forms.css" rel="stylesheet" type="text/css">
+        <!-- Keeps the program from sending an error saying it can't find module html -->
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        {{> header}}
+        {{> navigation}}
+        <div align="center">
+          <h1>Edit, Delete, or Just View Your Note!</h1>
+        </div>
+        <!-- Sets up form to add a new book -->
+        <table style="width: 100%;">
+            <tr>
+                <td></td>
+                <td style="width:25%;">
+                    <form action="/book_notes/manage_notes/save" method="post" id="manage_note_form">
+                      {{#each note}}
+                          <label for="book_title">Book Title</label><br>
+                          <input disabled="true" type="text" id="book_title" name="book_title" value={{book_title}}><br>
+
+                          <label for="note_title">Note Title</label><br>
+                          <input disabled="true" type="text" id="note_title" name="note_title" value={{note_title}}><br>
+
+                          <label for="note">Note</label><br>
+                          <textarea disabled="true" type="text" id="note" name="note" rows="10" cols="45">{{note}}</textarea><br>
+
+                          <div align="center">
+                            <button style="width:49%; float: left;" onclick="makeEditable();" type="button" id="edit_note" name="edit_note">Edit</button>
+                            <button style="width:49%; float: right;" onclick="cancelEdit();" disabled="true" type="button" id="cancel_edit" name="cancel_edit">Cancel</button>
+                          </div>
+
+                          <button style="width:100%;" disabled="true" type="submit" id="save" name="save">Save</button>
+                          <input hidden="true" type="text" id="note_id" name="note_id" value={{_id}}><br>
+                        {{/each}}
+                    </form>
+                </td>
+                <td></td>
+            </tr>
+            <!-- Form for deleting the book -->
+            <tr>
+              <td></td>
+              <td>
+                <form action="" method="" id="delete_form" onsubmit="return validateForm();">
+                  <button onclick="delete_check();" style="width:100%;" type="submit" id="delete" name="delete">Delete</button>
+                  {{#each book}}
+                    <input hidden="true" type="text" id="book_id" name="note_id" value={{_id}}><br>
+                    <input hidden="true" type="text" id="book_title" name="book_title" value={{book_title}}><br>
+                  {{/each}}
+                </form>
+              </td>
+              <td></td>
+            </tr>
+        </table>
+        {{> footer}}
+        <!-- imports manage_books.js to use its functions -->
+        <script src="../../scripts/manage_notes.js"></script>
+    </body>
+</html>
