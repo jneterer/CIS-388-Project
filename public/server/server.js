@@ -354,7 +354,7 @@ app.post('/book_quotes/new_quote', ensure.ensureLoggedIn('/login'), (req, res) =
 app.post('/book_quotes/manage_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
   var selected_quote_title = _.pick(req.body, ['select_quote_title']);
   console.log(selected_quote_title.select_quote_title);
-  Book_Quote.find({user_id: req.user._id, note_title: selected_quote_title.select_quote_title}, (err, quote) => {
+  Book_Quote.find({user_id: req.user._id, quote_title: selected_quote_title.select_quote_title}, (err, quote) => {
     if (!err) {
       res.render('manage_quotes.hbs', {
         home: false,
@@ -369,6 +369,20 @@ app.post('/book_quotes/manage_quotes', ensure.ensureLoggedIn('/login'), (req, re
       });
     }
     else {
+      console.log(err);
+    }
+  });
+});
+
+app.post('/book_quotes/manage_quotes/save', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var edited_quote = _.pick(req.body, ['quote_id', 'quote_title', 'quote']);
+  Book_Quote.findByIdAndUpdate({user_id: req.user._id, _id: edited_quote.quote_id}, {$set: {
+    quote_title: edited_quote.quote_title,
+    quote: edited_quote.quote
+  }}, (err, quote) => {
+    if (!err) {
+      res.redirect('/book_quotes');
+    } else {
       console.log(err);
     }
   });
