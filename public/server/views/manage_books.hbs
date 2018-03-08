@@ -64,8 +64,12 @@
             <tr>
               <td></td>
               <td>
-                <form>
-                  <button style="width:100%;" type="submit" id="delete" name="delete">Delete</button>
+                <form action="/my_library/manage_books/delete" method="post" id="delete_form" onsubmit="return validateForm();">
+                  <button onclick="delete_check();" style="width:100%;" type="submit" id="delete" name="delete">Delete</button>
+                  {{#each book}}
+                    <input hidden="true" type="text" id="book_id" name="book_id" value={{_id}}><br>
+                    <input hidden="true" type="text" id="book_title" name="book_title" value={{book_title}}><br>
+                  {{/each}}
                 </form>
               </td>
               <td></td>

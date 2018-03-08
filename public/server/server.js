@@ -175,6 +175,36 @@ app.post('/my_library/manage_books/save', ensure.ensureLoggedIn('/login'), (req,
   });
 });
 
+app.post('/my_library/manage_books/delete', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var book = _.pick(req.body, ['book_id', 'book_title']);
+  Book_Note.remove({user_id: req.user._id, book_title: book.book_title}, (err) => {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      console.log('Deleted the book\'s notes successfully!');
+    }
+  });
+  Book_Quote.remove({user_id: req.user._id, book_title: book.book_title}, (err) => {
+    console.log(req.user._id + ' ' + book.book_title);
+    if (err) {
+      console.log(err);
+    }
+    else {
+      console.log('Deleted the book\'s quotes successfully!');
+    }
+  });
+  Book.remove({user_id: req.user._id, _id: book.book_id}, (err) => {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      console.log('Deleted book successfully!');
+    }
+  });
+  res.send(req.user);
+});
+
 app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
   res.render('active_books.hbs', {
     home: false,

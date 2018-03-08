@@ -21,3 +21,12 @@ function cancelEdit() {
     document.getElementById('save').disabled = true;
   }
 }
+
+function validateForm() {
+  var r = confirm("Are you sure you want to delete this book? The book along with its notes and quotes will be lost.");
+  if (r === false) {
+    return false;
+  }
+
+  return true;
+}
