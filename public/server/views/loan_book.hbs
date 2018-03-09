@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Ensures proper rendering and touch zooming for mobile applications -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bookshelf - Loan Book</title>
+        <!-- Imports master.css file -->
+        <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
+        <!-- Imports the tables style css sheet -->
+        <link href="../style_templates/tables.css" rel="stylesheet" type="text/css">
+        <!-- Imports stylesheet for forms -->
+        <link href="../style_templates/forms.css" rel="stylesheet" type="text/css">
+        <!-- Keeps the program from sending an error saying it can't find module html -->
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        {{> header}}
+        {{> navigation}}
+        <div align="center">
+          <h1>Loan Your Book!</h1>
+        </div>
+        <!-- Sets up form to add a new book -->
+        <table style="width: 100%;">
+            <tr>
+                <td></td>
+                <td style="width:25%;">
+                    <form action="/active_books/loan_book/loan" method="post" id="loan_form">
+                        <label for="book_title">Book Title</label><br>
+                        <input disabled="true" type="text" value={{book_title}}><br>
+
+                        <label for="loaned_to">Who are you lending it to?*</label><br>
+                        <input type="text" id="loaned_to" name="loaned_to"><br>
+
+                        <label for="date_loaned">Date Loaned*</label><br>
+                        <input type="date" id="date_loaned" name="date_loaned"><br>
+
+                        <label for="phone">Phone</label><br>
+                        <input type="text" id="phone" name="phone"><br>
+
+                        <label for="email">Email</label><br>
+                        <input type="text" id="email" name="email"><br>
+
+                        <label for="comments">Comments</label><br>
+                        <textarea type="text" id="comments" name="comments" rows="5" cols="45"></textarea><br>
+
+                        <button style="width:100%;" type="submit" id="loan" name="loan">Loan</button>
+                        <input hidden="true" type="text" id="book_title" name="book_title" value={{book_title}}><br>
+                    </form>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        {{> footer}}
+        <!-- imports manage_books.js to use its functions -->
+        <script src="../../scripts/manage_notes.js"></script>
+    </body>
+</html>

@@ -32,6 +32,7 @@ var {User} = require('./models/user');
 var {Book} = require('./models/book');
 var {Book_Note} = require('./models/book_notes');
 var {Book_Quote} = require('./models/book_quotes');
+var {Active_Book} = require('./models/active_books');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -71,14 +72,8 @@ app.get('/create_account', (req, res) => {
 app.post('/create_account', (req, res) => {
   var body = _.pick(req.body, ['first_name', 'last_name', 'email', 'password', 'confirmPassword', 'phone']);
   var user = new User(body);
-
-  if (body.password !== body.confirmPassword) {
-    console.log(`Password: ${bodypassword} does not equal confirmPassword: ${body.confirmPassword}`)
-    res.redirect('create_account');
-  } else {
-    user.save();
-    res.redirect('/login');
-  }
+  user.save();
+  res.redirect('/login');
 });
 
 app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
@@ -206,7 +201,41 @@ app.post('/my_library/manage_books/delete', ensure.ensureLoggedIn('/login'), (re
 });
 
 app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
-  res.render('active_books.hbs', {
+  Book.find({user_id: req.user._id}, (err, books) => {
+    if (!err) {
+      var notLendingBooks = new Array();
+      for (i = 0; i < books.length; i++) {
+        if (books[i].actively_lending === false) {
+          notLendingBooks.push(books[i])
+        }
+      }
+      Active_Book.find({user_id: req.user._id}, (err, active_books) => {
+        if (!err) {
+          res.render('active_books.hbs', {
+            home: false,
+            my_library: false,
+            active_books: true,
+            book_notes: false,
+            book_quotes: false,
+            about: false,
+            contact_us: false,
+            account: false,
+            books: notLendingBooks,
+            active_books: active_books
+          });
+        } else {
+          console.log(err);
+        }
+      });
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+app.post('/active_books/loan_book', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var book_title = _.pick(req.body, ['select_book_title']);
+  res.render('loan_book.hbs', {
     home: false,
     my_library: false,
     active_books: true,
@@ -214,7 +243,22 @@ app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
     book_quotes: false,
     about: false,
     contact_us: false,
-    account: false
+    account: false,
+    book_title: book_title.select_book_title
+  });
+});
+
+app.post('/active_books/loan_book/loan', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var body = _.pick(req.body, ['book_title', 'loaned_to', 'date_loaned', 'phone', 'email', 'comments']);
+  var active_book = new Active_Book(body);
+  active_book.user_id = req.user._id;
+  active_book.save();
+  Book.update({user_id: req.user._id, book_title: body.book_title}, {$set: {
+    actively_lending: true
+  }}, (err, book) => {
+    if (!err) {
+      res.redirect('/active_books');
+    }
   });
 });
 

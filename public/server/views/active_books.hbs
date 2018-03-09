@@ -15,32 +15,63 @@
     <body>
         {{> header}}
         {{> navigation}}
+        <table>
+          <tr>
+            <form action="/active_books/loan_book" method="post">
+              <td>
+                Select Book: <select id="select_book_title" name="select_book_title">
+                  {{#each books}}
+                    <option>{{book_title}}</option>
+                  {{/each}}
+                </select><br>
+              </td>
+              <td>
+                <button type="submit" class="add_button">Lend Book</button>
+              </td>
+            </form>
+            <td></td>
+          </tr>
+        </table>
+
         <!-- Table holding book lend data -->
         <table class="table_books">
             <tr>
                 <th class="th_books">Book Title</th>
                 <th class="th_books">Date Lent</th>
                 <th class="th_books">Borrower's Name</th>
-                <th class="th_books">Email</th>
                 <th class="th_books">Phone #</th>
+                <th class="th_books">Email</th>
                 <th class="th_books">Comments</th>
             </tr>
-            <tr class="tr_books">
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-            </tr>
-            <tr class="tr_books">
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-                <td class="td_books"></td>
-            </tr>
+            {{#if active_books}}
+              {{#each active_books}}
+                <tr class="tr_books">
+                    <td class="td_books">{{book_title}}</td>
+                    <td class="td_books">{{date_loaned}}</td>
+                    <td class="td_books">{{loaned_to}}</td>
+                    <td class="td_books">{{phone}}</td>
+                    <td class="td_books">{{email}}</td>
+                    <td class="td_books">{{comments}}</td>
+                </tr>
+              {{/each}}
+            {{else}}
+              <tr class="tr_books">
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+              </tr>
+              <tr class="tr_books">
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+                  <td class="td_books"></td>
+              </tr>
+            {{/if}}
         </table>
         {{> footer}}
     </body>
