@@ -22,11 +22,20 @@ function cancelEdit() {
   }
 }
 
-function validateForm() {
+function validateDeleteForm() {
   var r = confirm("Are you sure you want to delete this book? The book along with its notes and quotes will be lost.");
   if (r === false) {
     return false;
   }
 
+  return true;
+}
+
+function validateManageBookForm() {
+  var book_title = document.forms['manage_book_form']['book_title'].value;
+  if (book_title === '') {
+    alert('You must have entered a book title!');
+    return false;
+  }
   return true;
 }

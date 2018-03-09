@@ -25,7 +25,7 @@
             <tr>
                 <td></td>
                 <td style="width:25%;">
-                    <form action="/my_library/manage_books/save" method="post" id="manage_book_form">
+                    <form action="/my_library/manage_books/save" method="post" id="manage_book_form" onsubmit="return validateManageBookForm();">
                       {{#each book}}
                           <label for="book_title">Book Title*</label><br>
                           <input disabled="true" type="text" id="book_title" name="book_title" value={{book_title}}><br>
@@ -74,7 +74,7 @@
             <tr>
               <td></td>
               <td>
-                <form action="/my_library/manage_books/delete" method="post" id="delete_form" onsubmit="return validateForm();">
+                <form action="/my_library/manage_books/delete" method="post" id="delete_form" onsubmit="return validateDeleteForm();">
                   <button onclick="delete_check();" style="width:100%;" type="submit" id="delete" name="delete">Delete</button>
                   {{#each book}}
                     <input hidden="true" type="text" id="book_id" name="book_id" value={{_id}}><br>

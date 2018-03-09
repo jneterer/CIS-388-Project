@@ -16,11 +16,21 @@ function cancelEdit() {
   }
 }
 
-function validateForm() {
+function validateDeleteForm() {
   var r = confirm("Are you sure you want to delete this note? The note will be lost.");
   if (r === false) {
     return false;
   }
 
+  return true;
+}
+
+function validateManageNoteForm() {
+  var note_title = document.forms['manage_note_form']['note_title'].value;
+  var note = document.forms['manage_note_form']['note'].value;
+  if (note_title === '' || note === '') {
+    alert('All required fields must be filled out!');
+    return false;
+  }
   return true;
 }
