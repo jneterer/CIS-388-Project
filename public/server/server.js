@@ -353,7 +353,6 @@ app.post('/book_quotes/new_quote', ensure.ensureLoggedIn('/login'), (req, res) =
 
 app.post('/book_quotes/manage_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
   var selected_quote_title = _.pick(req.body, ['select_quote_title']);
-  console.log(selected_quote_title.select_quote_title);
   Book_Quote.find({user_id: req.user._id, quote_title: selected_quote_title.select_quote_title}, (err, quote) => {
     if (!err) {
       res.render('manage_quotes.hbs', {
