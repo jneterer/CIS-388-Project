@@ -202,7 +202,7 @@ app.post('/my_library/manage_books/delete', ensure.ensureLoggedIn('/login'), (re
       console.log('Deleted book successfully!');
     }
   });
-  res.send(req.user);
+  res.redirect('/my_library');
 });
 
 app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
@@ -296,7 +296,18 @@ app.post('/book_notes/manage_notes/save', ensure.ensureLoggedIn('/login'), (req,
   }}, (err, book) => {
     if (!err) {
       res.redirect('/book_notes');
-    } else {
+    }
+    console.log(err);
+  });
+});
+
+app.post('/book_notes/manage_notes/delete', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var note = _.pick(req.body, ['book_id', 'note_title']);
+  Book_Note.remove({user_id: req.user._id, note_title: note.note_title}, (err) => {
+    if (!err) {
+      res.redirect('/book_notes');
+    }
+    else {
       console.log(err);
     }
   });
@@ -382,6 +393,18 @@ app.post('/book_quotes/manage_quotes/save', ensure.ensureLoggedIn('/login'), (re
     if (!err) {
       res.redirect('/book_quotes');
     } else {
+      console.log(err);
+    }
+  });
+});
+
+app.post('/book_quotes/manage_quotes/delete', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var quote = _.pick(req.body, ['book_id', 'quote_title']);
+  Book_Quote.remove({user_id: req.user._id, quote_title: quote.quote_title}, (err) => {
+    if (!err) {
+      res.redirect('/book_quotes');
+    }
+    else {
       console.log(err);
     }
   });

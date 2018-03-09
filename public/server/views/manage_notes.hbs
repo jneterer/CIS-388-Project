@@ -52,11 +52,11 @@
             <tr>
               <td></td>
               <td>
-                <form action="" method="" id="delete_form" onsubmit="return validateDeleteForm();">
+                <form action="/book_notes/manage_notes/delete" method="post" id="delete_form" onsubmit="return validateDeleteForm();">
                   <button onclick="delete_check();" style="width:100%;" type="submit" id="delete" name="delete">Delete</button>
-                  {{#each book}}
-                    <input hidden="true" type="text" id="book_id" name="note_id" value={{_id}}><br>
-                    <input hidden="true" type="text" id="book_title" name="book_title" value={{book_title}}><br>
+                  {{#each note}}
+                    <input hidden="true" type="text" id="note_id" name="note_id" value={{_id}}><br>
+                    <input hidden="true" type="text" id="note_title" name="note_title" value={{note_title}}><br>
                   {{/each}}
                 </form>
               </td>

@@ -21,7 +21,6 @@ function validateDeleteForm() {
   if (r === false) {
     return false;
   }
-
   return true;
 }
 
