@@ -25,7 +25,7 @@
             <tr>
                 <td></td>
                 <td style="width:25%;">
-                    <form action="/book_quotes/new_quote" method="post">
+                    <form action="/book_quotes/new_quote" method="post" name="new_quote_form" onsubmit="return validateForm();">
                         <label for="book_title">Select Book</label><br>
                         <select id="book_title" name="book_title">
                           {{#each books}}
@@ -46,5 +46,7 @@
             </tr>
         </table>
         {{> footer}}
+        <!-- imports manage_books.js to use its functions -->
+        <script src="../../scripts/new_quote.js"></script>
     </body>
 </html>

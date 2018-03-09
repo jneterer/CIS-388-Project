@@ -25,7 +25,7 @@
             <tr>
                 <td></td>
                 <td style="width:25%;">
-                    <form action="/my_library/new_book" method="post">
+                    <form action="/my_library/new_book" method="post" name="new_book_form" onsubmit="return validateForm();">
                         <label for="book_title">Book Title*</label><br>
                         <input type="text" id="book_title" name="book_title"><br>
 
@@ -43,7 +43,7 @@
 
                         <label for="date_gifted">Date Gifted</label><br>
                         <input type="date" id="date_gifted" name="date_gifted"><br>
-                          
+
                         <button style="width: 100%;" type="submit" id="add_book" name="add_book">Add Book</button>
                     </form>
                 </td>
@@ -51,5 +51,7 @@
             </tr>
         </table>
         {{> footer}}
+        <!-- imports manage_books.js to use its functions -->
+        <script src="../../scripts/new_book.js"></script>
     </body>
 </html>
