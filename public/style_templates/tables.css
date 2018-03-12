@@ -11,9 +11,9 @@
 }
 
 .th_books {
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     background-color: rgb(150, 150, 150);
     border: 1px solid black;
     border-collapse: collapse;
@@ -21,9 +21,9 @@ text-overflow: ellipsis;
 }
 
 .td_books {
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     border: 1px solid black;
     border-collapse: collapse;
     height: 20px;
