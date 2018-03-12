@@ -1,4 +1,8 @@
 .table_books {
+    table-layout: fixed;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     border: 1px solid black;
     border-collapse: collapse;
     margin-top: 5px;
@@ -7,6 +11,9 @@
 }
 
 .th_books {
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
     background-color: rgb(150, 150, 150);
     border: 1px solid black;
     border-collapse: collapse;
@@ -14,6 +21,9 @@
 }
 
 .td_books {
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
     border: 1px solid black;
     border-collapse: collapse;
     height: 20px;
