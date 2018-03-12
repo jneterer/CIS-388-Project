@@ -28,10 +28,10 @@
                     <form action="/book_quotes/manage_quotes/save" method="post" id="manage_quote_form" onsubmit="return validateManageQuoteForm();">
                       {{#each quote}}
                           <label for="book_title">Book Title</label><br>
-                          <input disabled="true" type="text" id="book_title" name="book_title" value={{book_title}}><br>
+                          <input disabled="true" type="text" id="book_title" name="book_title" value="{{book_title}}"><br>
 
                           <label for="quote_title">Quote Title*</label><br>
-                          <input disabled="true" type="text" id="quote_title" name="quote_title" value={{quote_title}}><br>
+                          <input disabled="true" type="text" id="quote_title" name="quote_title" value="{{quote_title}}"><br>
 
                           <label for="quote">Quote*</label><br>
                           <textarea disabled="true" id="quote" name="quote" rows="10" cols="45">{{quote}}</textarea><br>
@@ -56,7 +56,7 @@
                   <button onclick="delete_check();" style="width:100%;" type="submit" id="delete" name="delete">Delete</button>
                   {{#each quote}}
                     <input hidden="true" type="text" id="quote_id" name="quote_id" value={{_id}}><br>
-                    <input hidden="true" type="text" id="quote_title" name="quote_title" value={{quote_title}}><br>
+                    <input hidden="true" type="text" id="quote_title" name="quote_title" value="{{quote_title}}"><br>
                   {{/each}}
                 </form>
               </td>

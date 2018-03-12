@@ -27,7 +27,7 @@
                 <td style="width:25%;">
                     <form action="/active_books/loan_book/loan" method="post" id="loan_form">
                         <label for="book_title">Book Title</label><br>
-                        <input disabled="true" type="text" value={{book_title}}><br>
+                        <input disabled="true" type="text" value="{{book_title}}"><br>
 
                         <label for="loaned_to">Who are you lending it to?*</label><br>
                         <input type="text" id="loaned_to" name="loaned_to"><br>
@@ -45,7 +45,7 @@
                         <textarea type="text" id="comments" name="comments" rows="5" cols="45"></textarea><br>
 
                         <button style="width:100%;" type="submit" id="loan" name="loan">Loan</button>
-                        <input hidden="true" type="text" id="book_title" name="book_title" value={{book_title}}><br>
+                        <input hidden="true" type="text" id="book_title" name="book_title" value="{{book_title}}"><br>
                     </form>
                 </td>
                 <td></td>
