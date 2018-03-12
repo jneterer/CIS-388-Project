@@ -354,7 +354,6 @@ app.post('/book_notes/manage_notes/delete', ensure.ensureLoggedIn('/login'), (re
     else {
       console.log(err);
     }
-    console.log();
   });
 });
 
