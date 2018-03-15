@@ -11,12 +11,12 @@ function makeEditable() {
 function cancelEdit() {
   var r = confirm("Are you sure you want to cancel? All progress will be lost.");
   if (r === true) {
-    document.getElementById('manage_book_form').reset();
     document.getElementById('book_title').disabled = true;
     document.getElementById('authors').disabled = true;
     document.getElementById('ISBN').disabled = true;
     document.getElementById('gift_first_name').disabled = true;
     document.getElementById('gift_last_name').disabled = true;
+    document.getElementById('manage_book_form').reset();
     document.getElementById('cancel_edit').disabled = true;
     document.getElementById('save').disabled = true;
   }

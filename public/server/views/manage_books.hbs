@@ -18,7 +18,7 @@
         {{> header}}
         {{> navigation}}
         <div align="center">
-          <h1>Edit, Manage Lend, Delete, or Just View Your Book!</h1>
+          <h1>Edit, Delete, or Just View Your Book!</h1>
         </div>
         <!-- Sets up form to add a new book -->
         <table style="width: 100%;">
@@ -60,22 +60,12 @@
                 </td>
                 <td></td>
             </tr>
-            <!-- Form for managing lending the book -->
-            <tr>
-              <td></td>
-              <td>
-              <form>
-                <button style="width:100%;" type="submit" id="manage_lend" name="manage_lend">Manage Lend</button>
-              </form>
-              </td>
-              <td></td>
-            </tr>
             <!-- Form for deleting the book -->
             <tr>
               <td></td>
               <td>
                 <form action="/my_library/manage_books/delete" method="post" id="delete_form" onsubmit="return validateDeleteForm();">
-                  <button onclick="delete_check();" style="width:100%;" type="submit" id="delete" name="delete">Delete</button>
+                  <button style="width:100%;" type="submit" id="delete" name="delete">Delete</button>
                   {{#each book}}
                     <input hidden="true" type="text" id="book_id" name="book_id" value={{_id}}><br>
                     <input hidden="true" type="text" id="book_title" name="book_title" value="{{book_title}}"><br>

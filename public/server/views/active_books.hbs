@@ -20,13 +20,39 @@
             <form action="/active_books/loan_book" method="post">
               <td>
                 Select Book: <select id="select_book_title" name="select_book_title">
-                  {{#each books}}
+                  {{#each notLendingBooks}}
                     <option>{{book_title}}</option>
                   {{/each}}
                 </select><br>
               </td>
               <td>
                 <button type="submit" class="add_button">Lend Book</button>
+              </td>
+            </form>
+            <form action="/active_books/edit_loaned_book" method="post">
+              <td style="width: 5%;"></td>
+              <td>
+                Select Book: <select id="select_book_title" name="select_book_title">
+                  {{#each lendingBooks}}
+                    <option>{{book_title}}</option>
+                  {{/each}}
+                </select><br>
+              </td>
+              <td>
+                <button type="submit" class="add_button">Edit Lending Information</button>
+              </td>
+            </form>
+            <form>
+              <td style="width: 5%;"></td>
+              <td>
+                Select Book: <select id="select_book_title" name="select_book_title">
+                  {{#each lendingBooks}}
+                    <option>{{book_title}}</option>
+                  {{/each}}
+                </select><br>
+              </td>
+              <td>
+                <button type="submit" class="add_button">Return Book</button>
               </td>
             </form>
             <td></td>

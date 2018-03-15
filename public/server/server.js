@@ -204,9 +204,13 @@ app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
   Book.find({user_id: req.user._id}, (err, books) => {
     if (!err) {
       var notLendingBooks = new Array();
+      var lendingBooks = new Array();
       for (i = 0; i < books.length; i++) {
         if (books[i].actively_lending === false) {
           notLendingBooks.push(books[i])
+        }
+        else {
+          lendingBooks.push(books[i]);
         }
       }
       Active_Book.find({user_id: req.user._id}, (err, active_books) => {
@@ -220,7 +224,8 @@ app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
             about: false,
             contact_us: false,
             account: false,
-            books: notLendingBooks,
+            notLendingBooks: notLendingBooks,
+            lendingBooks: lendingBooks,
             active_books: active_books
           });
         } else {
@@ -245,6 +250,74 @@ app.post('/active_books/loan_book', ensure.ensureLoggedIn('/login'), (req, res) 
     contact_us: false,
     account: false,
     book_title: book_title.select_book_title
+  });
+});
+
+app.post('/active_books/edit_loaned_book', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var book_title = _.pick(req.body, ['select_book_title']);
+  Active_Book.find({user_id: req.user._id, book_title: book_title.select_book_title}, (err, loaning_book) => {
+    res.render('edit_loaned_book.hbs', {
+      home: false,
+      my_library: false,
+      active_books: true,
+      book_notes: false,
+      book_quotes: false,
+      about: false,
+      contact_us: false,
+      account: false,
+      loaning_book: loaning_book,
+      a: 'a'
+    });
+  });
+});
+
+app.post('/active_books/edit_loaned_book/save', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var body = _.pick(req.body, ['_id', 'loaned_to', 'new_date_loaned', 'phone', 'email', 'comments']);
+  if (body.new_date_loaned === '') {
+    Active_Book.findByIdAndUpdate({user_id: req.user._id, _id: body._id}, {$set: {
+      loaned_to: body.loaned_to,
+      phone: body.phone,
+      email: body.email,
+      comments: body.comments
+    }}, (err) => {
+      if (!err) {
+        res.redirect('/active_books');
+      }
+      console.log(err);
+    });
+  } else {
+    Active_Book.findByIdAndUpdate({user_id: req.user._id, _id: body._id}, {$set: {
+      loaned_to: body.loaned_to,
+      date_loaned: body.new_date_loaned,
+      phone: body.phone,
+      email: body.email,
+      comments: body.comments
+    }}, (err) => {
+      if (!err) {
+        res.redirect('/active_books');
+      }
+      console.log(err);
+    });
+  }
+});
+
+app.post('/active_books/edit_loaned_book/delete', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var body = _.pick(req.body, ['book_title', '_id']);
+  Book.update({user_id: req.user._id, book_title: body.book_title}, {$set: {
+    actively_lending: false
+  }}, (err, book) => {
+    if (!err) {
+      Active_Book.remove({user_id: req.user._id, _id: body._id}, (err) => {
+        if (!err) {
+          res.redirect('/active_books');
+        }
+        else {
+          console.log(err);
+        }
+      });
+    } else {
+      console.log(err);
+    }
   });
 });
 
