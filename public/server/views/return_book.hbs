@@ -27,7 +27,7 @@
                 <td style="width:25%;">
                     <form action="/active_books/return_book/post" method="post" id="return_book" onsubmit="return validateReturnBookForm();">
                         <label for="book_title">Book Title</label><br>
-                        <input type="text" id="book_title" name="book_title" value="{{loaning_book}}"><br>
+                        <input disabled="true" type="text" id="book_title" name="book_title" value="{{loaning_book}}"><br>
 
                         <label for="date_returned">Date Returned*</label><br>
                         <input type="date" id="date_returned" name="date_returned"><br>
@@ -36,6 +36,7 @@
                         <textarea type="text" id="additional_comments" name="additional_comments" rows="10" cols="45"></textarea><br>
 
                         <button style="width: 100%;" type="submit" id="return_book" name="return_book">Return Book</button>
+                        <input hidden="true" type="text" id="selected_book_title" name="selected_book_title" value="{{loaning_book}}"><br>
                     </form>
                 </td>
                 <td></td>

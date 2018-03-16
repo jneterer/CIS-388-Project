@@ -33,6 +33,7 @@ var {Book} = require('./models/book');
 var {Book_Note} = require('./models/book_notes');
 var {Book_Quote} = require('./models/book_quotes');
 var {Active_Book} = require('./models/active_books');
+var {Activity_History} = require('./models/activity_history');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -279,8 +280,7 @@ app.post('/active_books/edit_loaned_book', ensure.ensureLoggedIn('/login'), (req
       about: false,
       contact_us: false,
       account: false,
-      loaning_book: loaning_book,
-      a: 'a'
+      loaning_book: loaning_book
     });
   });
 });
@@ -351,8 +351,38 @@ app.post('/active_books/return_book', ensure.ensureLoggedIn('/login'), (req, res
 });
 
 app.post('/active_books/return_book/post', ensure.ensureLoggedIn('/login'), (req, res) => {
-  var body = _.pick(req.body, ['book_title', 'date_returned', 'additional_comments']);
-  
+  var body = _.pick(req.body, ['selected_book_title', 'date_returned', 'additional_comments']);
+  Active_Book.findOne({user_id: req.user._id, book_title: body.selected_book_title}, (err, active_book) => {
+    if (!err) {
+      var activity_history = new Activity_History();
+      activity_history.user_id = req.user._id;
+      activity_history.book_title = active_book.book_title;
+      activity_history.loaned_to = active_book.loaned_to;
+      activity_history.date_loaned = active_book.date_loaned;
+      activity_history.date_returned = body.date_returned;
+      activity_history.phone = active_book.phone;
+      activity_history.email = active_book.email;
+      activity_history.comments = active_book.comments;
+      activity_history.post_activity_comments = body.additional_comments;
+      activity_history.save();
+      Book.update({user_id: req.user._id, book_title: body.selected_book_title}, {$set: {
+        actively_lending: false
+      }}, (err) => {
+        if (err) {
+          console.log('no error there');
+        }
+      });
+      Active_Book.remove({user_id: req.user._id, book_title: body.selected_book_title}, (err) => {
+        if (!err) {
+          res.redirect('/my_library');
+        } else {
+        console.log('no error anywhere');
+        }
+      });
+    } else {
+    console.log('no error here');
+    }
+  });
 });
 
 app.get('/book_notes', ensure.ensureLoggedIn('/login'), (req, res) => {
