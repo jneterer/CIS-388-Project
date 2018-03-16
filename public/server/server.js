@@ -219,7 +219,7 @@ app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
           res.render('active_books.hbs', {
             home: false,
             my_library: false,
-            active_books: true,
+            active_books_page: true,
             book_notes: false,
             book_quotes: false,
             about: false,
