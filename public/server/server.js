@@ -253,6 +253,20 @@ app.post('/active_books/loan_book', ensure.ensureLoggedIn('/login'), (req, res) 
   });
 });
 
+app.post('/active_books/loan_book/loan', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var body = _.pick(req.body, ['book_title', 'loaned_to', 'date_loaned', 'phone', 'email', 'comments']);
+  var active_book = new Active_Book(body);
+  active_book.user_id = req.user._id;
+  active_book.save();
+  Book.update({user_id: req.user._id, book_title: body.book_title}, {$set: {
+    actively_lending: true
+  }}, (err, book) => {
+    if (!err) {
+      res.redirect('/active_books');
+    }
+  });
+});
+
 app.post('/active_books/edit_loaned_book', ensure.ensureLoggedIn('/login'), (req, res) => {
   var book_title = _.pick(req.body, ['select_book_title']);
   Active_Book.find({user_id: req.user._id, book_title: book_title.select_book_title}, (err, loaning_book) => {
@@ -321,18 +335,24 @@ app.post('/active_books/edit_loaned_book/delete', ensure.ensureLoggedIn('/login'
   });
 });
 
-app.post('/active_books/loan_book/loan', ensure.ensureLoggedIn('/login'), (req, res) => {
-  var body = _.pick(req.body, ['book_title', 'loaned_to', 'date_loaned', 'phone', 'email', 'comments']);
-  var active_book = new Active_Book(body);
-  active_book.user_id = req.user._id;
-  active_book.save();
-  Book.update({user_id: req.user._id, book_title: body.book_title}, {$set: {
-    actively_lending: true
-  }}, (err, book) => {
-    if (!err) {
-      res.redirect('/active_books');
-    }
+app.post('/active_books/return_book', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var body = _.pick(req.body, ['select_book_title']);
+  res.render('return_book.hbs', {
+    home: false,
+    my_library: false,
+    active_books: true,
+    book_notes: false,
+    book_quotes: false,
+    about: false,
+    contact_us: false,
+    account: false,
+    loaning_book: body.select_book_title
   });
+});
+
+app.post('/active_books/return_book/post', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var body = _.pick(req.body, ['book_title', 'date_returned', 'additional_comments']);
+  
 });
 
 app.get('/book_notes', ensure.ensureLoggedIn('/login'), (req, res) => {

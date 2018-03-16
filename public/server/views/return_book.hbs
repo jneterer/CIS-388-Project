@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Ensures proper rendering and touch zooming for mobile applications -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bookshelf - Return Book</title>
+        <!-- Imports master.css file -->
+        <link href="../style_templates/master.css" rel="stylesheet" type="text/css">
+        <!-- Imports the tables style css sheet -->
+        <link href="../style_templates/tables.css" rel="stylesheet" type="text/css">
+        <!-- Imports stylesheet for forms -->
+        <link href="../style_templates/forms.css" rel="stylesheet" type="text/css">
+        <!-- Keeps the program from sending an error saying it can't find module html -->
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        {{> header}}
+        {{> navigation}}
+        <div align="center">
+          <h1>Return Your Book!<h1>
+        </div>
+        <!-- Sets up form to add a new book -->
+        <table style="width: 100%;">
+            <tr>
+                <td></td>
+                <td style="width:25%;">
+                    <form action="/active_books/return_book/post" method="post" id="return_book" onsubmit="return validateReturnBookForm();">
+                        <label for="book_title">Book Title</label><br>
+                        <input type="text" id="book_title" name="book_title" value="{{loaning_book}}"><br>
+
+                        <label for="date_returned">Date Returned*</label><br>
+                        <input type="date" id="date_returned" name="date_returned"><br>
+
+                        <label for="additional_comments">Additional Comments</label><br>
+                        <textarea type="text" id="additional_comments" name="additional_comments" rows="10" cols="45"></textarea><br>
+
+                        <button style="width: 100%;" type="submit" id="return_book" name="return_book">Return Book</button>
+                    </form>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        {{> footer}}
+        <!-- imports manage_books.js to use its functions -->
+        <script src="../../scripts/return_book.js"></script>
+    </body>
+</html>
