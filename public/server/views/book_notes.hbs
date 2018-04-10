@@ -17,25 +17,33 @@
         {{> navigation}}
         <table>
           <tr>
-            <td>
-              <form action="/book_notes/new_note" method="get">
-                  <!-- Need to add button hover event -->
-                  <button type="submit" class="add_button">Add Note</button>
-              </form>
-            </td>
-            <td style="width: 10%;"></td>
-            <form action="/book_notes/manage_notes" method="post">
+            {{#if existingBooks}}
               <td>
-                Select Note: <select id="select_note_title" name="select_note_title">
-                  {{#each notes}}
-                    <option>{{note_title}}</option>
-                  {{/each}}
-                </select><br>
+                <form action="/book_notes/new_note" method="get">
+                    <!-- Need to add button hover event -->
+                    <button type="submit" class="add_button">Add Note</button>
+                </form>
               </td>
-              <td>
-                <button type="submit" class="add_button">Manage Note</button>
-              </td>
-            </form>
+              {{#if existingNotes}}
+                <td style="width: 10%;"></td>
+                <form action="/book_notes/manage_notes" method="post">
+                  <td>
+                    Select Note: <select id="select_note_title" name="select_note_title">
+                      {{#each notes}}
+                        <option>{{note_title}}</option>
+                      {{/each}}
+                    </select><br>
+                  </td>
+                  <td>
+                    <button type="submit" class="add_button">Manage Note</button>
+                  </td>
+                </form>
+              {{/if}}
+            {{else}}
+              <div align="center">
+                <h1>Add a book to add notes!</h1>
+              </div>
+            {{/if}}
           </tr>
         </table>
         <!-- Table holding book data -->

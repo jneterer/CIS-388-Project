@@ -15,50 +15,60 @@
     <body>
         {{> header}}
         {{> navigation}}
-        <table>
-          <tr>
-            <form action="/active_books/loan_book" method="post">
-              <td>
-                Select Book: <select id="select_book_title" name="select_book_title">
-                  {{#each notLendingBooks}}
-                    <option>{{book_title}}</option>
-                  {{/each}}
-                </select><br>
-              </td>
-              <td>
-                <button type="submit" class="add_button">Lend Book</button>
-              </td>
-            </form>
-            <form action="/active_books/edit_loaned_book" method="post">
-              <td style="width: 5%;"></td>
-              <td>
-                Select Book: <select id="select_book_title" name="select_book_title">
-                  {{#each lendingBooks}}
-                    <option>{{book_title}}</option>
-                  {{/each}}
-                </select><br>
-              </td>
-              <td>
-                <button type="submit" class="add_button">Edit Lending Information</button>
-              </td>
-            </form>
-            <form action="/active_books/return_book" method="post">
-              <td style="width: 5%;"></td>
-              <td>
-                Select Book: <select id="select_book_title" name="select_book_title">
-                  {{#each lendingBooks}}
-                    <option>{{book_title}}</option>
-                  {{/each}}
-                </select><br>
-              </td>
-              <td>
-                <button type="submit" class="add_button">Return Book</button>
-              </td>
-            </form>
-            <td></td>
-          </tr>
-        </table>
-
+        {{#if existingBooks}}
+          <table>
+            {{#if notLending}}
+            {{else}}
+              <tr>
+                <form action="/active_books/loan_book" method="post">
+                  <td>
+                    Select Book: <select id="select_book_title" name="select_book_title">
+                      {{#each notLendingBooks}}
+                        <option>{{book_title}}</option>
+                      {{/each}}
+                    </select><br>
+                  </td>
+                  <td>
+                    <button type="submit" class="add_button">Lend Book</button>
+                  </td>
+                </form>
+            {{/if}}
+              {{#if existingLending}}
+                <form action="/active_books/edit_loaned_book" method="post">
+                  <td style="width: 5%;"></td>
+                  <td>
+                    Select Book: <select id="select_book_title" name="select_book_title">
+                      {{#each lendingBooks}}
+                        <option>{{book_title}}</option>
+                      {{/each}}
+                    </select><br>
+                  </td>
+                  <td>
+                    <button type="submit" class="add_button">Edit Lending Information</button>
+                  </td>
+                </form>
+                <form action="/active_books/return_book" method="post">
+                  <td style="width: 5%;"></td>
+                  <td>
+                    Select Book: <select id="select_book_title" name="select_book_title">
+                      {{#each lendingBooks}}
+                        <option>{{book_title}}</option>
+                      {{/each}}
+                    </select><br>
+                  </td>
+                  <td>
+                    <button type="submit" class="add_button">Return Book</button>
+                  </td>
+                </form>
+              {{/if}}
+              <td></td>
+            </tr>
+          </table>
+        {{else}}
+          <div align="center">
+            <h1>Add a book to lend a book!</h1>
+          </div>
+        {{/if}}
         <!-- Table holding book lend data -->
         <table class="table_books">
             <tr>

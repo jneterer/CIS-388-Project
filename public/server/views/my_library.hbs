@@ -24,19 +24,21 @@
                   <button type="submit" class="add_button">Add Book</button>
               </form>
             </td>
+            {{#if existingBooks}}
             <td style="width: 10%;"></td>
-            <form action="/my_library/manage_books" method="post">
-              <td>
-                Select Book: <select id="select_book_title" name="select_book_title">
-                  {{#each books}}
-                    <option>{{book_title}}</option>
-                  {{/each}}
-                </select><br>
-              </td>
-              <td>
-                <button type="submit" class="add_button">Manage Book</button>
-              </td>
-            </form>
+              <form action="/my_library/manage_books" method="post">
+                <td>
+                  Select Book: <select id="select_book_title" name="select_book_title">
+                    {{#each books}}
+                      <option>{{book_title}}</option>
+                    {{/each}}
+                  </select><br>
+                </td>
+                <td>
+                  <button type="submit" class="add_button">Manage Book</button>
+                </td>
+              </form>
+            {{/if}}
             <td></td>
           </tr>
         </table>
@@ -58,9 +60,9 @@
                   <td class="td_books">{{book_title}}</td>
                   <td class="td_books">{{authors}}</td>
                   {{#if actively_lending}}
-                    <td class="td_books">True</td>
+                    <td class="td_books">Lending</td>
                   {{else}}
-                    <td class="td_books">False</td>
+                    <td class="td_books">Not Lending</td>
                   {{/if}}
                   <td class="td_books">{{ISBN}}</td>
                   <td class="td_books">{{gift_first_name}}</td>

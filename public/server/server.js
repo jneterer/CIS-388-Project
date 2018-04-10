@@ -94,6 +94,10 @@ app.get('/home', ensure.ensureLoggedIn('/login'), (req, res) => {
 app.get('/my_library', ensure.ensureLoggedIn('/login'), (req, res) => {
   Book.find({user_id: req.user._id}, (err, books) => {
     if (!err) {
+      var existingBooks = true;
+      if (books.length === 0) {
+        var existingBooks = false;
+      }
       res.render('my_library.hbs', {
         home: false,
         my_library: true,
@@ -103,7 +107,8 @@ app.get('/my_library', ensure.ensureLoggedIn('/login'), (req, res) => {
         about: false,
         contact_us: false,
         account: false,
-        books: books
+        books: books,
+        existingBooks: existingBooks
       });
     } else {
       console.log(err);
@@ -204,6 +209,10 @@ app.post('/my_library/manage_books/delete', ensure.ensureLoggedIn('/login'), (re
 app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
   Book.find({user_id: req.user._id}, (err, books) => {
     if (!err) {
+      var existingBooks = true;
+      if (books.length === 0) {
+        var existingBooks = false;
+      }
       var notLendingBooks = new Array();
       var lendingBooks = new Array();
       for (i = 0; i < books.length; i++) {
@@ -213,6 +222,14 @@ app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
         else {
           lendingBooks.push(books[i]);
         }
+      }
+      var existingLending = true;
+      if (lendingBooks.length === 0) {
+        var existingLending = false;
+      }
+      var notLending = true;
+      if (notLending.length === 0) {
+        var notLending = false;
       }
       Active_Book.find({user_id: req.user._id}, (err, active_books) => {
         if (!err) {
@@ -227,7 +244,9 @@ app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
             account: false,
             notLendingBooks: notLendingBooks,
             lendingBooks: lendingBooks,
-            active_books: active_books
+            active_books: active_books,
+            existingBooks: existingBooks,
+            existingLending: existingLending
           });
         } else {
           console.log(err);
@@ -388,16 +407,32 @@ app.post('/active_books/return_book/post', ensure.ensureLoggedIn('/login'), (req
 app.get('/book_notes', ensure.ensureLoggedIn('/login'), (req, res) => {
   Book_Note.find({user_id: req.user._id}, (err, notes) => {
     if (!err) {
-      res.render('book_notes.hbs', {
-        home: false,
-        my_library: false,
-        active_books: false,
-        book_notes: true,
-        book_quotes: false,
-        about: false,
-        contact_us: false,
-        account: false,
-        notes: notes
+      Book.find({user_id: req.user._id}, (err, books) => {
+        if(!err) {
+          var existingBooks = true;
+          if (books.length === 0) {
+            var existingBooks = false;
+          }
+          var existingNotes = true;
+          if (notes.length === 0) {
+            var existingNotes = false;
+          }
+          res.render('book_notes.hbs', {
+            home: false,
+            my_library: false,
+            active_books: false,
+            book_notes: true,
+            book_quotes: false,
+            about: false,
+            contact_us: false,
+            account: false,
+            notes: notes,
+            existingBooks: existingBooks,
+            existingNotes: existingNotes //
+          });
+        } else {
+          console.log(err);
+        }
       });
     } else {
       console.log(err);
@@ -483,16 +518,32 @@ app.post('/book_notes/manage_notes/delete', ensure.ensureLoggedIn('/login'), (re
 app.get('/book_quotes', ensure.ensureLoggedIn('/login'), (req, res) => {
   Book_Quote.find({user_id: req.user._id}, (err, quotes) => {
     if (!err) {
-      res.render('book_quotes.hbs', {
-        home: false,
-        my_library: false,
-        active_books: false,
-        book_notes: false,
-        book_quotes: true,
-        about: false,
-        contact_us: false,
-        account: false,
-        quote: quotes
+      Book.find({user_id: req.user._id}, (err, books) => {
+        if(!err) {
+          var existingBooks = true;
+          if (books.length === 0) {
+            var existingBooks = false;
+          }
+          var existingQuotes = true;
+          if (quotes.length === 0) {
+            var existingQuotes = false;
+          }
+          res.render('book_quotes.hbs', {
+            home: false,
+            my_library: false,
+            active_books: false,
+            book_notes: false,
+            book_quotes: true,
+            about: false,
+            contact_us: false,
+            account: false,
+            quotes: quotes,
+            existingBooks: existingBooks,
+            existingQuotes: existingQuotes
+          });
+        } else {
+          console.log(err);
+        }
       });
     }
     else {
