@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.sendFile('/login.html', {root: __dirname + '../../login'});
+  res.render('login.hbs');
 });
 
 app.post('/login', passport.authenticate('local', {successReturnToOrRedirect: '/home', failureRedirect: '/login'}), (req, res) => {
