@@ -17,9 +17,8 @@
         {{> navigation}}
         {{#if existingBooks}}
           <table>
+            <tr>
             {{#if notLending}}
-            {{else}}
-              <tr>
                 <form action="/active_books/loan_book" method="post">
                   <td>
                     Select Book: <select id="select_book_title" name="select_book_title">
@@ -32,6 +31,7 @@
                     <button type="submit" class="add_button">Lend Book</button>
                   </td>
                 </form>
+            {{else}}
             {{/if}}
               {{#if existingLending}}
                 <form action="/active_books/edit_loaned_book" method="post">
@@ -63,6 +63,15 @@
               {{/if}}
               <td></td>
             </tr>
+            {{#if historyLending}}
+              <tr>
+                <form>
+                  <td>
+                    <button type="submit" class="add_button">Lending History</button>
+                  </td>
+                </form>
+              </tr>
+            {{/if}}
           </table>
         {{else}}
           <div align="center">

@@ -9,7 +9,7 @@ const _ = require('lodash');
 const path = require('path');
 const hbs = require('hbs');
 const port = process.env.PORT || 3000;
-
+//
 // Express Application
 var app = express();
 
@@ -209,44 +209,57 @@ app.post('/my_library/manage_books/delete', ensure.ensureLoggedIn('/login'), (re
 app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
   Book.find({user_id: req.user._id}, (err, books) => {
     if (!err) {
-      var existingBooks = true;
-      if (books.length === 0) {
-        var existingBooks = false;
-      }
-      var notLendingBooks = new Array();
-      var lendingBooks = new Array();
-      for (i = 0; i < books.length; i++) {
-        if (books[i].actively_lending === false) {
-          notLendingBooks.push(books[i])
-        }
-        else {
-          lendingBooks.push(books[i]);
-        }
-      }
-      var existingLending = true;
-      if (lendingBooks.length === 0) {
-        var existingLending = false;
-      }
-      var notLending = true;
-      if (notLending.length === 0) {
-        var notLending = false;
-      }
-      Active_Book.find({user_id: req.user._id}, (err, active_books) => {
+      Activity_History.find({user_id: req.user_id}, (err, history) => {
         if (!err) {
-          res.render('active_books.hbs', {
-            home: false,
-            my_library: false,
-            active_books_page: true,
-            book_notes: false,
-            book_quotes: false,
-            about: false,
-            contact_us: false,
-            account: false,
-            notLendingBooks: notLendingBooks,
-            lendingBooks: lendingBooks,
-            active_books: active_books,
-            existingBooks: existingBooks,
-            existingLending: existingLending
+          var existingBooks = true;
+          if (books.length === 0) {
+            var existingBooks = false;
+          }
+          var notLendingBooks = new Array();
+          var lendingBooks = new Array();
+          for (i = 0; i < books.length; i++) {
+            if (books[i].actively_lending === false) {
+              notLendingBooks.push(books[i])
+            }
+            else {
+              lendingBooks.push(books[i]);
+            }
+          }
+          var existingLending = true;
+          if (lendingBooks.length === 0) {
+            var existingLending = false;
+          }
+          var notLending = true;
+          console.log(lendingBooks.length - books.length);
+          if ((books.length - lendingBooks.length) === 0) {
+            var notLending = false;
+          }
+          var historyLending = true;
+          if (history.length === 0) {
+            var historyLending = false;
+          }
+          Active_Book.find({user_id: req.user._id}, (err, active_books) => {
+            if (!err) {
+              res.render('active_books.hbs', {
+                home: false,
+                my_library: false,
+                active_books_page: true,
+                book_notes: false,
+                book_quotes: false,
+                about: false,
+                contact_us: false,
+                account: false,
+                notLendingBooks: notLendingBooks,
+                lendingBooks: lendingBooks,
+                active_books: active_books,
+                existingBooks: existingBooks,
+                existingLending: existingLending,
+                historyLending: historyLending,
+                notLending: notLending
+              });
+            } else {
+              console.log(err);
+            }
           });
         } else {
           console.log(err);
