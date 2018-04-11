@@ -15,11 +15,11 @@
         <div align="center">
             <form action="/create_account" method="post" name="create_account_form" onsubmit="return validateForm();">
                 <legend>Create an Account</legend>
-                <input type="text" id="first_name" name="first_name" placeholder="First Name*">
-                <input type="text" id="last_name" name="last_name" placeholder="Last Name*">
-                <input type="text" id="email" name="email" placeholder="Email*">
-                <input type="password" id="password" name="password" placeholder="Password*">
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat Password*">
+                <input required type="text" id="first_name" name="first_name" placeholder="First Name*">
+                <input required type="text" id="last_name" name="last_name" placeholder="Last Name*">
+                <input required type="text" id="email" name="email" placeholder="Email*">
+                <input required type="password" id="password" name="password" placeholder="Password*">
+                <input required type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat Password*">
                 <input type="text" id="phone" name="phone" placeholder="Phone Number">
                 <button type="submit" id="createAccount">Create Account</button>
                 <a href="/login">Already have an account.</a><br>
