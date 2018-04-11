@@ -25,10 +25,10 @@
             <tr>
                 <td></td>
                 <td style="width:25%;">
-                    <form action="/my_library/manage_books/save" method="post" id="manage_book_form" onsubmit="return validateManageBookForm();">
+                    <form action="/my_library/manage_books/save" method="post" id="manage_book_form">
                       {{#each book}}
                           <label for="book_title">Book Title*</label><br>
-                          <input disabled="true" type="text" id="book_title" name="book_title" value="{{book_title}}"><br>
+                          <input required disabled="true" type="text" id="book_title" name="book_title" value="{{book_title}}"><br>
 
                           <label for="authors">Authors</label><br>
                           <input disabled="true" type="text" id="authors" name="authors" value="{{authors}}"><br>

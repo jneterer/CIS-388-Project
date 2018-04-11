@@ -26,12 +26,12 @@
                 <td></td>
                 <td style="width:25%;">
                   {{#each loaning_book}}
-                    <form action="/active_books/edit_loaned_book/save" method="post" id="edited_loaned_book_form" onsubmit="return validateEditLoanForm();">
+                    <form action="/active_books/edit_loaned_book/save" method="post" id="edited_loaned_book_form">
                         <label for="book_title">Book Title</label><br>
                         <input disabled="true" type="text" value="{{book_title}}"><br>
 
                         <label for="loaned_to">Who are you lending it to?*</label><br>
-                        <input disabled="true" type="text" id="loaned_to" name="loaned_to" value="{{loaned_to}}"><br>
+                        <input required disabled="true" type="text" id="loaned_to" name="loaned_to" value="{{loaned_to}}"><br>
 
                         <label for="date_loaned">Date Loaned</label><br>
                         <input disabled="true" type="text" value="{{date_loaned}}"><br>

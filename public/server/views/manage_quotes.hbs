@@ -25,16 +25,16 @@
             <tr>
                 <td></td>
                 <td style="width:25%;">
-                    <form action="/book_quotes/manage_quotes/save" method="post" id="manage_quote_form" onsubmit="return validateManageQuoteForm();">
+                    <form action="/book_quotes/manage_quotes/save" method="post" id="manage_quote_form">
                       {{#each quote}}
                           <label for="book_title">Book Title</label><br>
                           <input disabled="true" type="text" id="book_title" name="book_title" value="{{book_title}}"><br>
 
                           <label for="quote_title">Quote Title*</label><br>
-                          <input disabled="true" type="text" id="quote_title" name="quote_title" value="{{quote_title}}"><br>
+                          <input required disabled="true" type="text" id="quote_title" name="quote_title" value="{{quote_title}}"><br>
 
                           <label for="quote">Quote*</label><br>
-                          <textarea disabled="true" id="quote" name="quote" rows="10" cols="45">{{quote}}</textarea><br>
+                          <textarea required disabled="true" id="quote" name="quote" rows="10" cols="45">{{quote}}</textarea><br>
 
                           <div align="center">
                             <button style="width:49%; float: left;" onclick="makeEditable();" type="button" id="edit_note" name="edit_note">Edit</button>

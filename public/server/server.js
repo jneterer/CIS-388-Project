@@ -10,7 +10,7 @@ const path = require('path');
 const hbs = require('hbs');
 const sgMail = require('@sendgrid/mail');
 const port = process.env.PORT || 3000;
-//
+
 // Express Application
 var app = express();
 

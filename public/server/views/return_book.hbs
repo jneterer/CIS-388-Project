@@ -25,12 +25,12 @@
             <tr>
                 <td></td>
                 <td style="width:25%;">
-                    <form action="/active_books/return_book/post" method="post" id="return_book" onsubmit="return validateReturnBookForm();">
+                    <form action="/active_books/return_book/post" method="post" id="return_book">
                         <label for="book_title">Book Title</label><br>
                         <input disabled="true" type="text" id="book_title" name="book_title" value="{{loaning_book}}"><br>
 
                         <label for="date_returned">Date Returned*</label><br>
-                        <input type="date" id="date_returned" name="date_returned"><br>
+                        <input required type="date" id="date_returned" name="date_returned"><br>
 
                         <label for="additional_comments">Additional Comments</label><br>
                         <textarea type="text" id="additional_comments" name="additional_comments" rows="10" cols="45"></textarea><br>
@@ -43,7 +43,5 @@
             </tr>
         </table>
         {{> footer}}
-        <!-- imports manage_books.js to use its functions -->
-        <script src="../../scripts/return_book.js"></script>
     </body>
 </html>

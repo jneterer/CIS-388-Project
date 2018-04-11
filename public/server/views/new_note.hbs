@@ -25,7 +25,7 @@
             <tr>
                 <td></td>
                 <td style="width:25%;">
-                    <form action="/book_notes/new_note" method="post" name="new_note_form" onsubmit="return validateForm();">
+                    <form action="/book_notes/new_note" method="post" name="new_note_form">
                         <label for="book_title">Select Book</label><br>
                         <select id="book_title" name="book_title">
                           {{#each books}}
@@ -34,10 +34,10 @@
                         </select><br>
 
                         <label for="note_title">Note Title*</label><br>
-                        <input type="text" id="note_title" name="note_title"><br>
+                        <input required type="text" id="note_title" name="note_title"><br>
 
                         <label for="note">Note*</label><br>
-                        <textarea id="note" name="note" rows="10" cols="45"></textarea><br>
+                        <textarea required id="note" name="note" rows="10" cols="45"></textarea><br>
 
                         <button style="width: 100%;" type="submit" id="add_note" name="add_note">Add Note</button>
                     </form>
@@ -46,7 +46,5 @@
             </tr>
         </table>
         {{> footer}}
-        <!-- imports manage_books.js to use its functions -->
-        <script src="../../scripts/new_note.js"></script>
     </body>
 </html>

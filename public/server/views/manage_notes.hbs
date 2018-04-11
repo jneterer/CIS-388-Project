@@ -25,16 +25,16 @@
             <tr>
                 <td></td>
                 <td style="width:25%;">
-                    <form action="/book_notes/manage_notes/save" method="post" id="manage_note_form" onsubmit="return validateManageNoteForm();">
+                    <form action="/book_notes/manage_notes/save" method="post" id="manage_note_form">
                       {{#each note}}
                           <label for="book_title">Book Title</label><br>
                           <input disabled="true" type="text" id="book_title" name="book_title" value="{{book_title}}"><br>
 
                           <label for="note_title">Note Title*</label><br>
-                          <input disabled="true" type="text" id="note_title" name="note_title" value="{{note_title}}"><br>
+                          <input required disabled="true" type="text" id="note_title" name="note_title" value="{{note_title}}"><br>
 
                           <label for="note">Note*</label><br>
-                          <textarea disabled="true" type="text" id="note" name="note" rows="10" cols="45">{{note}}</textarea><br>
+                          <textarea required disabled="true" type="text" id="note" name="note" rows="10" cols="45">{{note}}</textarea><br>
 
                           <div align="center">
                             <button style="width:49%; float: left;" onclick="makeEditable();" type="button" id="edit_note" name="edit_note">Edit</button>

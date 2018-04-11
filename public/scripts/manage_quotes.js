@@ -24,13 +24,3 @@ function validateDeleteForm() {
 
   return true;
 }
-
-function validateManageQuoteForm() {
-  var quote_title = document.forms['manage_quote_form']['quote_title'].value;
-  var quote = document.forms['manage_quote_form']['quote'].value;
-  if (quote_title === '' || quote === '') {
-    alert('All required fields must be filled out!');
-    return false;
-  }
-  return true;
-}

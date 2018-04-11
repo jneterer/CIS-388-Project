@@ -22,15 +22,6 @@ function cancelEdit() {
   }
 }
 
-function validateEditLoanForm() {
-  var loaned_to = document.forms['edited_loaned_book_form']['loaned_to'].value;
-  if (loaned_to === '') {
-    alert('You must have entered who you loaned the book to!');
-    return false;
-  }
-  return true;
-}
-
 function validateDeleteForm() {
   var r = confirm("Are you sure you want to delete this book? The book along with its notes and quotes will be lost.");
   if (r === false) {
