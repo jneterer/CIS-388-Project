@@ -35,7 +35,6 @@
             {{/if}}
               {{#if existingLending}}
                 <form action="/active_books/edit_loaned_book" method="post">
-                  <td style="width: 5%;"></td>
                   <td>
                     Select Book: <select id="select_book_title" name="select_book_title">
                       {{#each lendingBooks}}
@@ -61,7 +60,6 @@
                   </td>
                 </form>
               {{/if}}
-              <td></td>
             </tr>
             <tr>
               <form action="/active_books/lending_history" method="get">

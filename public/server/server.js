@@ -8,10 +8,13 @@ const ensure = require('connect-ensure-login');
 const _ = require('lodash');
 const path = require('path');
 const hbs = require('hbs');
+const sgMail = require('@sendgrid/mail');
 const port = process.env.PORT || 3000;
 //
 // Express Application
 var app = express();
+
+// Sets API key for sending sgMail
 
 // In the case that it is run locally, require the config files
 if (port === 3000) {
@@ -34,6 +37,7 @@ var {Book_Note} = require('./models/book_notes');
 var {Book_Quote} = require('./models/book_quotes');
 var {Active_Book} = require('./models/active_books');
 var {Activity_History} = require('./models/activity_history');
+var {Message} = require('./models/messages');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -275,7 +279,7 @@ app.post('/active_books/loan_book', ensure.ensureLoggedIn('/login'), (req, res) 
   res.render('loan_book.hbs', {
     home: false,
     my_library: false,
-    active_books: true,
+    active_books_page: true,
     book_notes: false,
     book_quotes: false,
     about: false,
@@ -305,7 +309,7 @@ app.post('/active_books/edit_loaned_book', ensure.ensureLoggedIn('/login'), (req
     res.render('edit_loaned_book.hbs', {
       home: false,
       my_library: false,
-      active_books: true,
+      active_books_page: true,
       book_notes: false,
       book_quotes: false,
       about: false,
@@ -371,7 +375,7 @@ app.post('/active_books/return_book', ensure.ensureLoggedIn('/login'), (req, res
   res.render('return_book.hbs', {
     home: false,
     my_library: false,
-    active_books: true,
+    active_books_page: true,
     book_notes: false,
     book_quotes: false,
     about: false,
@@ -682,6 +686,31 @@ app.get('/contact_us', ensure.ensureLoggedIn('/login'), (req, res) => {
     book_quotes: false,
     about: false,
     contact_us: true,
+    account: false
+  });
+});
+app.post('/contact_us', ensure.ensureLoggedIn('/login'), (req, res) => {
+  var message = _.pick(req.body, ['subject', 'message']);
+  var newMessage = new Message(message);
+  newMessage.user_id = req.user._id;
+  newMessage.save();
+  sgMail.setApiKey(process.env.SENDGRID);
+  const msg = {
+    to: req.user.email,
+    from: 'HomeBookShelf@customersupport.com',
+    subject: 'Your Message To Us!',
+    text: 'Thank you so much for getting in contact with us! We will be getting in contact with you shortly!',
+    html: '<strong>Thank you so much for getting in contact with us! We will be getting in contact with you shortly!</strong>'
+  };
+  sgMail.send(msg);
+  res.render('home.hbs', {
+    home: true,
+    my_library: false,
+    active_books: false,
+    book_notes: false,
+    book_quotes: false,
+    about: false,
+    contact_us: false,
     account: false
   });
 });
