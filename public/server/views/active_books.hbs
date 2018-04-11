@@ -63,15 +63,13 @@
               {{/if}}
               <td></td>
             </tr>
-            {{#if historyLending}}
-              <tr>
-                <form>
-                  <td>
-                    <button type="submit" class="add_button">Lending History</button>
-                  </td>
-                </form>
-              </tr>
-            {{/if}}
+            <tr>
+              <form action="/active_books/lending_history" method="get">
+                <td>
+                  <button type="submit" class="add_button">Lending History</button>
+                </td>
+              </form>
+            </tr>
           </table>
         {{else}}
           <div align="center">

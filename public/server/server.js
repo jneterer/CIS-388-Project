@@ -230,7 +230,6 @@ app.get('/active_books', ensure.ensureLoggedIn('/login'), (req, res) => {
             var existingLending = false;
           }
           var notLending = true;
-          console.log(lendingBooks.length - books.length);
           if ((books.length - lendingBooks.length) === 0) {
             var notLending = false;
           }
@@ -417,6 +416,26 @@ app.post('/active_books/return_book/post', ensure.ensureLoggedIn('/login'), (req
   });
 });
 
+app.get('/active_books/lending_history', ensure.ensureLoggedIn('/login'), (req, res) => {
+  Activity_History.find({user_id: req.user._id}, (err, history) => {
+    if (!err) {
+      res.render('lending_history.hbs', {
+        home: false,
+        my_library: false,
+        active_books_page: true,
+        book_notes: false,
+        book_quotes: false,
+        about: false,
+        contact_us: false,
+        account: false,
+        history: history
+      });
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 app.get('/book_notes', ensure.ensureLoggedIn('/login'), (req, res) => {
   Book_Note.find({user_id: req.user._id}, (err, notes) => {
     if (!err) {
@@ -441,7 +460,7 @@ app.get('/book_notes', ensure.ensureLoggedIn('/login'), (req, res) => {
             account: false,
             notes: notes,
             existingBooks: existingBooks,
-            existingNotes: existingNotes //
+            existingNotes: existingNotes
           });
         } else {
           console.log(err);
