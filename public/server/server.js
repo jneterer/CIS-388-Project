@@ -14,8 +14,6 @@ const port = process.env.PORT || 3000;
 // Express Application
 var app = express();
 
-// Sets API key for sending sgMail
-
 // In the case that it is run locally, require the config files
 if (port === 3000) {
   // Not accessible in Heroku
